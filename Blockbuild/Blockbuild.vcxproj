@@ -131,15 +131,19 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CubeBlock.cpp" />
+    <ClCompile Include="PhysicsObject.cpp" />
     <ClCompile Include="RenderedObject.cpp">
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Jonathan McClen\source\repos\Blockbuild\Blockbuild\include\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="CubeBlock.h" />
     <ClInclude Include="Main.h" />
+    <ClInclude Include="PhysicsObject.h" />
     <ClInclude Include="RenderedObject.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

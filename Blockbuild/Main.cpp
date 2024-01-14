@@ -1,10 +1,7 @@
 #include "Main.h"
 
-// INIT TEST VAR
-float cameraRotationAngle = 0.0f;
-float cameraRotationSpeed = 1.0f;
-
 CubeBlock testCubeObject;
+Camera userCamera;
 
 void renderLoop() {
 
@@ -13,14 +10,8 @@ void renderLoop() {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    // Update camera rotation
-    cameraRotationAngle += 0.01 * cameraRotationSpeed;  // Adjust the multiplication factor for rotation speed
-
-    gluLookAt(5.0 * sin(cameraRotationAngle), 0.0, 5.0 * cos(cameraRotationAngle),  // Updated camera position
-        0.0, 0.0, 0.0,
-        0.0, 1.0, 0.0);
-
-    //Draw shit here
+    //Draw shit and camera shit
+    userCamera.autoLookAt();
     testCubeObject.draw();
 
     glutSwapBuffers();
@@ -36,6 +27,10 @@ void reshape(int width, int height) {
 void physicsLoop(int value) {
 
     glutPostRedisplay();
+
+    //Update shit
+    userCamera.update();
+
     glutTimerFunc(16, physicsLoop, 0);  // 60 frames per second
 }
 

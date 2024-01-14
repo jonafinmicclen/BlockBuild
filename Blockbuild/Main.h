@@ -6,6 +6,7 @@
 #include <iostream>
 #include "RenderedObject.h"
 #include "CubeBlock.h"
+#include "Camera.h"
 
 void renderLoop();
 void reshape(int width, int height);

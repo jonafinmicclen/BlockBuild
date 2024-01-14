@@ -2,8 +2,9 @@
 #define CUBEBLOCK_H
 
 #include "RenderedObject.h"
+#include "PhysicsObject.h"
 
-class CubeBlock : public RenderedObject{
+class CubeBlock : public RenderedObject, public PhysicsObject{
 public:
 	CubeBlock();
 };
