@@ -1,5 +1,15 @@
 #include "RenderedObject.h"
 
+//init
+RenderedObject::RenderedObject() {
+    //Default color
+    setColor({ 1,1,1 });
+}
+
+void RenderedObject::setColor(const glm::vec3& newColor) {
+    color = newColor;
+}
+
 void RenderedObject::addVertex(const glm::vec3& vertex) {
     vertices.push_back(vertex);
 }
@@ -8,7 +18,7 @@ void RenderedObject::addSurface(const std::vector<int>& surfaceIndices) {
     surfaces.push_back(surfaceIndices);
 }
     
-void RenderedObject::draw() {
+void RenderedObject::draw() {   // This draw method is slow bc no VBO or list
 
     glPushMatrix();
     glTranslatef(position.x, position.y, position.z);

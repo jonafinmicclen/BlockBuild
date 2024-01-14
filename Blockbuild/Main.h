@@ -5,6 +5,7 @@
 #include <cmath>
 #include <iostream>
 #include "RenderedObject.h"
+#include "CubeBlock.h"
 
 void renderLoop();
 void reshape(int width, int height);

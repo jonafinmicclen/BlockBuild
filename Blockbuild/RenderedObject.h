@@ -10,6 +10,8 @@
 class RenderedObject {
 public:
 
+    RenderedObject();
+
     std::vector<glm::vec3> vertices = {};
     std::vector<std::vector<int>> surfaces = {};
 
@@ -21,6 +23,7 @@ public:
 
     void addVertex(const glm::vec3& vertex);
     void addSurface(const std::vector<int>& surfaceIndices);
+    void setColor(const glm::vec3& newColor);
     void draw();
 };
 

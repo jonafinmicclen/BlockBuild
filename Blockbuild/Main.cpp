@@ -1,7 +1,10 @@
 #include "Main.h"
 
-//Testing object
-RenderedObject myObject;
+// INIT TEST VAR
+float cameraRotationAngle = 0.0f;
+float cameraRotationSpeed = 1.0f;
+
+CubeBlock testCubeObject;
 
 void renderLoop() {
 
@@ -10,15 +13,15 @@ void renderLoop() {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    gluLookAt(0.0, 0.0, 5.0, //Camera perspective
+    // Update camera rotation
+    cameraRotationAngle += 0.01 * cameraRotationSpeed;  // Adjust the multiplication factor for rotation speed
+
+    gluLookAt(5.0 * sin(cameraRotationAngle), 0.0, 5.0 * cos(cameraRotationAngle),  // Updated camera position
         0.0, 0.0, 0.0,
         0.0, 1.0, 0.0);
 
-    //glTranslatef(cubePositionX, 0.0, 0.0);
-    //glRotatef(angleX, 1.0, 0.0, 0.0);
-    myObject.draw();
-
-    glutWireCube(1.0);
+    //Draw shit here
+    testCubeObject.draw();
 
     glutSwapBuffers();
 }
@@ -44,17 +47,6 @@ int main(int argc, char** argv) {
 
     glEnable(GL_DEPTH_TEST);
     glClearColor(0.0, 0.0, 0.0, 1.0);
-
-    //Test
-    // Add vertices and surfaces to your RenderedObject
-    myObject.addVertex(glm::vec3(-0.5, -0.5, 0.0));
-    myObject.addVertex(glm::vec3(0.5, -0.5, 0.0));
-    myObject.addVertex(glm::vec3(0.5, 0.5, 0.0));
-    myObject.addVertex(glm::vec3(-0.5, 0.5, 0.0));
-
-    // Define a surface using indices of the vertices
-    std::vector<int> quadIndices = { 0, 1, 2, 3 };
-    myObject.addSurface(quadIndices);
 
     glutDisplayFunc(renderLoop);
     glutReshapeFunc(reshape);
