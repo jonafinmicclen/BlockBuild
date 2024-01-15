@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\SOIL2.1.20.0.8\build\native\SOIL2.props" Condition="Exists('..\packages\SOIL2.1.20.0.8\build\native\SOIL2.props')" />
+  <Import Project="..\packages\soil.1.16.0\build\native\soil.props" Condition="Exists('..\packages\soil.1.16.0\build\native\soil.props')" />
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -129,7 +131,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CobblestoneCube.cpp" />
+    <ClCompile Include="CobblestoneCube.h" />
     <ClCompile Include="CubeBlock.cpp" />
+    <ClCompile Include="image_DXT.c" />
+    <ClCompile Include="image_helper.c" />
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="InputHandler.h" />
     <ClCompile Include="PhysicsObject.cpp" />
@@ -137,13 +143,24 @@
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Jonathan McClen\source\repos\Blockbuild\Blockbuild\include\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="SOIL.c" />
+    <ClCompile Include="stb_image-1.09.c" />
+    <ClCompile Include="stb_image-1.16.c" />
+    <ClCompile Include="stb_image_aug.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\..\Downloads\SOIL.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CubeBlock.h" />
+    <ClInclude Include="image_DXT.h" />
+    <ClInclude Include="image_helper.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="PhysicsObject.h" />
     <ClInclude Include="RenderedObject.h" />
+    <ClInclude Include="SOIL.h" />
+    <ClInclude Include="stbi_DDS_aug.h" />
+    <ClInclude Include="stbi_DDS_aug_c.h" />
+    <ClInclude Include="stb_image_aug.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -169,5 +186,7 @@
     <Error Condition="!Exists('..\packages\sdl2.nuget.2.28.5\build\native\sdl2.nuget.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\sdl2.nuget.2.28.5\build\native\sdl2.nuget.targets'))" />
     <Error Condition="!Exists('..\packages\sdl2.redist.2.0.5\build\native\sdl2.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\sdl2.redist.2.0.5\build\native\sdl2.redist.targets'))" />
     <Error Condition="!Exists('..\packages\sdl2.2.0.5\build\native\sdl2.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\sdl2.2.0.5\build\native\sdl2.targets'))" />
+    <Error Condition="!Exists('..\packages\soil.1.16.0\build\native\soil.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\soil.1.16.0\build\native\soil.props'))" />
+    <Error Condition="!Exists('..\packages\SOIL2.1.20.0.8\build\native\SOIL2.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SOIL2.1.20.0.8\build\native\SOIL2.props'))" />
   </Target>
 </Project>

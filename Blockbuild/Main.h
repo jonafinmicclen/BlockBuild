@@ -8,6 +8,9 @@
 #include "CubeBlock.h"
 #include "Camera.h"
 #include "InputHandler.h"
+#include "CobblestoneCube.h"
+#include "SOIL.h"
+
 
 void renderLoop();
 void reshape(int width, int height);

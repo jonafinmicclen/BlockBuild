@@ -1,6 +1,6 @@
 #include "Main.h"
 
-CubeBlock testCubeObject = CubeBlock({ 0,0,0 });
+CobblestoneCube testCubeObject = CobblestoneCube();
 std::vector<CubeBlock> objList;
 Camera userCamera;
 InputHandler inputs;
@@ -78,6 +78,13 @@ void physicsLoop(int value) {
 }
 
 int main(int argc, char** argv) {
+
+    // Initialize SOIL
+    if (SOIL_init() != 0) {
+        printf("SOIL initialization failed: %s\n", SOIL_last_result());
+        // Handle initialization failure
+        return -1;  // or handle the failure in an appropriate way
+    }
 
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);

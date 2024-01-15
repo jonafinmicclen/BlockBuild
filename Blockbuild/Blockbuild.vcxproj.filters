@@ -36,6 +36,30 @@
     <ClCompile Include="InputHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CobblestoneCube.h">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CobblestoneCube.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stb_image-1.09.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stb_image-1.16.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="image_DXT.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="image_helper.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SOIL.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stb_image_aug.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RenderedObject.h">
@@ -51,6 +75,27 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PhysicsObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\Downloads\SOIL.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="image_DXT.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="image_helper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SOIL.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stb_image_aug.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stbi_DDS_aug.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stbi_DDS_aug_c.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

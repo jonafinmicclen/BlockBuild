@@ -3,6 +3,7 @@
 //Init
 CubeBlock::CubeBlock(glm::vec3 startPosition) {
 
+    loadTexture(textureFilePath);
     position = startPosition;
 
     addVertex({-0.5, -0.5, -0.5});

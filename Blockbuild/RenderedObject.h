@@ -5,7 +5,9 @@
 #include <vector>
 #include <glm/glm.hpp>
 #include <float.h>
+#include "SOIL.h"
 #include <glm/gtc/type_ptr.hpp> 
+#include <iostream>
 
 class RenderedObject {
 public:
@@ -20,11 +22,15 @@ public:
 
     float rotation_angle;
     glm::vec3 color;
+    bool textured = false;
+
+    GLuint loadTexture(const char* imagePath);
+    GLuint textureID;
 
     void addVertex(const glm::vec3& vertex);
     void addSurface(const std::vector<int>& surfaceIndices);
     void setColor(const glm::vec3& newColor);
-    void draw();
+    virtual void draw();
 };
 
 #endif // RENDERED_OBJECT_H
