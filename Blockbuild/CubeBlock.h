@@ -6,7 +6,7 @@
 
 class CubeBlock : public RenderedObject, public PhysicsObject{
 public:
-	CubeBlock();
+	CubeBlock(glm::vec3 newPosition);
 };
 
 #endif // CUBEBLOCK_H

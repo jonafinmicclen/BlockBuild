@@ -7,13 +7,39 @@ void Camera::autoLookAt(){
         up.x,           up.y,           up.z);
 }
 
+void Camera::rotateLook(float angle, glm::vec3 axis) {
+
+    // Quat rotator logic
+    glm::vec3 relativeLook = target - position;
+    glm::quat rotation = glm::angleAxis(angle, axis);
+    glm::vec3 rotatedRelativeLook = rotation * relativeLook;
+    glm::vec3 newTarget = rotatedRelativeLook + position;
+    target = newTarget;
+}
+
+void Camera::moveRelativeAmbulate(float magnitude) {
+
+    glm::vec3 relativeLook = target - position;
+    glm::vec3 normalisedRelativeLook = glm::normalize(relativeLook);
+    position += normalisedRelativeLook * magnitude;
+    target += normalisedRelativeLook * magnitude;
+}
+
+void Camera::moveRelativeStrafe(float magnitude) {
+
+    glm::vec3 relativeLook = target - position;
+    glm::vec3 rightVector = glm::cross(relativeLook, up);
+    glm::vec3 strafeVector = glm::normalize(rightVector);
+    position += strafeVector * magnitude;
+    target += strafeVector * magnitude;
+}
+
+
 void Camera::update()  { 
     PhysicsObject::update();
 
-    float camX = sin(existanceTicks/6) * 5;
-    float camZ = cos(existanceTicks/6) * 5;
-    position.x = camX;
-    position.z = camZ;
+    // Update logic here
+
 }
 
 //None yet

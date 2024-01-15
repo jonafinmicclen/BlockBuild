@@ -1,7 +1,9 @@
 #include "CubeBlock.h"
 
 //Init
-CubeBlock::CubeBlock() {
+CubeBlock::CubeBlock(glm::vec3 startPosition) {
+
+    position = startPosition;
 
     addVertex({-0.5, -0.5, -0.5});
     addVertex({-0.5, 0.5, -0.5}); 

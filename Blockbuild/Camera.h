@@ -3,6 +3,8 @@
 
 #include <GL/glut.h>
 #include <glm/glm.hpp>
+#include <glm/gtc/quaternion.hpp>
+#include <glm/gtx/quaternion.hpp>
 #include "PhysicsObject.h"
 
 class Camera : public PhysicsObject{
@@ -14,6 +16,10 @@ public:
 
 	void autoLookAt();
 	void update();
+
+	void rotateLook(float, glm::vec3);
+	void moveRelativeAmbulate(float);
+	void moveRelativeStrafe(float);
 
 };
 #endif // CAMERA_H

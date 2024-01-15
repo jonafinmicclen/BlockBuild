@@ -1,7 +1,9 @@
 #include "Main.h"
 
-CubeBlock testCubeObject;
+CubeBlock testCubeObject = CubeBlock({ 0,0,0 });
+std::vector<CubeBlock> objList;
 Camera userCamera;
+InputHandler inputs;
 
 void renderLoop() {
 
@@ -13,6 +15,10 @@ void renderLoop() {
     //Draw shit and camera shit
     userCamera.autoLookAt();
     testCubeObject.draw();
+
+    for (auto& objToDraw : objList) {
+        objToDraw.draw();
+    }
 
     glutSwapBuffers();
 }
@@ -27,6 +33,43 @@ void reshape(int width, int height) {
 void physicsLoop(int value) {
 
     glutPostRedisplay();
+
+    // Handle received inputs from handler
+    auto pressed = inputs.getPressed();
+    for (const auto& input : pressed) {
+
+        switch (input) {
+        case 'W':
+            userCamera.rotateLook(0.01f, glm::vec3(1, 0, 0));
+            break;
+        case 'A':
+            userCamera.rotateLook(0.01f, glm::vec3(0, 1, 0));
+            break;
+        case 'S':
+            userCamera.rotateLook(-0.01f, glm::vec3(1, 0, 0));
+            break;
+        case 'D':
+            userCamera.rotateLook(-0.01f, glm::vec3(0, 1, 0));
+            break;
+        case 'U':
+            userCamera.moveRelativeAmbulate(0.1f);
+            break;
+        case 'M':
+            userCamera.moveRelativeAmbulate(-0.1f);
+            break;
+        case 'L':
+            userCamera.moveRelativeStrafe(-0.1f);
+            break;
+        case 'R':
+            userCamera.moveRelativeStrafe(0.1f);
+            break;
+        case 'T':
+            objList.push_back(CubeBlock({userCamera.position}));
+            break;
+        case 'Y':
+            break;
+        }
+    }
 
     //Update shit
     userCamera.update();
