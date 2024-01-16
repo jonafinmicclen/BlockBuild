@@ -1,5 +1,7 @@
 #include "Main.h"
 
+float MOUSE_SENSITIVITY = 0.001f;
+
 CubeBlock testCubeObject = CubeBlock({ 0,0,0 });
 std::vector<CubeBlock> objList;
 Camera userCamera;
@@ -35,32 +37,21 @@ void physicsLoop(int value) {
     glutPostRedisplay();
 
     // Handle received inputs from handler
+
+    // Keyboard Inputs
     auto pressed = inputs.getPressed();
     for (const auto& input : pressed) {
-
         switch (input) {
         case 'W':
-            userCamera.rotateLook(0.01f, glm::vec3(1, 0, 0));
-            break;
-        case 'A':
-            userCamera.rotateLook(0.01f, glm::vec3(0, 1, 0));
-            break;
-        case 'S':
-            userCamera.rotateLook(-0.01f, glm::vec3(1, 0, 0));
-            break;
-        case 'D':
-            userCamera.rotateLook(-0.01f, glm::vec3(0, 1, 0));
-            break;
-        case 'U':
             userCamera.moveRelativeAmbulate(0.1f);
             break;
-        case 'M':
+        case 'S':
             userCamera.moveRelativeAmbulate(-0.1f);
             break;
-        case 'L':
+        case 'A':
             userCamera.moveRelativeStrafe(-0.1f);
             break;
-        case 'R':
+        case 'D':
             userCamera.moveRelativeStrafe(0.1f);
             break;
         case 'T':
@@ -69,6 +60,14 @@ void physicsLoop(int value) {
         case 'Y':
             break;
         }
+    }
+
+    // Mouse inputs
+    glm::vec2 mouseVec = inputs.getMouseMovement();
+    float length = glm::length(mouseVec);
+    if (length != 0) {
+        mouseVec /= length;
+        userCamera.rotateLook(MOUSE_SENSITIVITY * length, glm::vec3(mouseVec.y, mouseVec.x, 0));
     }
 
     //Update shit

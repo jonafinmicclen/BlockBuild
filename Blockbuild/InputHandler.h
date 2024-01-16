@@ -5,17 +5,34 @@
 #include <thread>
 #include <vector>
 #include <iostream>
+#include <glm/glm.hpp>
 
 class InputHandler {
 public:
 	InputHandler();
+
 	std::vector<char> getPressed();
+	glm::vec2 getMouseMovement();
 
 private:
-	void _listener();
+
+	// Get center of screenm
+	int centerX = GetSystemMetrics(SM_CXSCREEN) / 2;
+	int centerY = GetSystemMetrics(SM_CYSCREEN) / 2;
+
+	int pollingT = 2;
+
+	void _keyboard_listener();
+	void _mouse_listener();
 
 	std::vector<char> pressedKeys;
 	std::vector<char> pressedBuffer;
+
+	//Mouse tracking
+	POINT cursorPos = { 0,0 };
+	glm::vec2 cursorPosBuffer = { 0,0 };
+	glm::vec2 cursorSum = { 0,0 };
+	glm::vec2 cursorSumBuffer = { 0,0 };
 
 	// Bool for each key
 	bool W_PRESSED = false;

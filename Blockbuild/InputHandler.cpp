@@ -1,11 +1,36 @@
 #include "InputHandler.h"
 
-InputHandler::InputHandler() {
-    std::thread listen([this]() { _listener(); }); // I have no idea what this does
-    listen.detach();
+InputHandler::InputHandler() {  // Initialise threads
+
+    std::thread keyboard_listener([this]() { _keyboard_listener(); });  // Start Keyboard thread
+    keyboard_listener.detach();
+
+    std::thread mouse_listener([this]() { _mouse_listener(); });        // Start Mouse thread
+    mouse_listener.detach();
+}
+void InputHandler::_mouse_listener() {
+
+    while (true) {
+
+        // Move the mouse cursor to the middle of the screen
+        SetCursorPos(centerX, centerY);
+
+        // Get the current cursor position, only calculate if values returned
+        if (GetCursorPos(&cursorPos)) {
+
+            cursorPosBuffer.x = cursorPos.x;
+            cursorPosBuffer.y = cursorPos.y;
+        }
+        Sleep(pollingT);
+        if (GetCursorPos(&cursorPos)) {
+
+            cursorSum.x += cursorPosBuffer.x - cursorPos.x;
+            cursorSum.y += cursorPosBuffer.y - cursorPos.y;
+        }
+    }
 }
 
-void InputHandler::_listener() {
+void InputHandler::_keyboard_listener() {
 
     // Add for each key you want to listen for
     while (true) {
@@ -50,6 +75,15 @@ void InputHandler::_listener() {
             pressedKeys.push_back('Y');
         }
     }
+}
+
+glm::vec2 InputHandler::getMouseMovement() {
+
+    cursorSumBuffer = cursorSum;
+    cursorSum.x = 0;
+    cursorSum.y = 0;
+    return cursorSumBuffer;
+
 }
 
 std::vector<char> InputHandler::getPressed() {
