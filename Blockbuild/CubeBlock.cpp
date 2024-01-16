@@ -1,21 +1,27 @@
 #include "CubeBlock.h"
 
-//Init
+// Init
 CubeBlock::CubeBlock(glm::vec3 startPosition) : RenderedObject() {
     position = startPosition;
     RenderedObject::loadTexture();
 
-    // Front face (reversed order)
-    addVertexAndTextureCoordinate({ {0.5f, -0.5f, -0.5f},   {1.0f, 0.0f} }); // 3
-    addVertexAndTextureCoordinate({ {0.5f, 0.5f, -0.5f},    {1.0f, 1.0f} }); // 2
-    addVertexAndTextureCoordinate({ {-0.5f, 0.5f, -0.5f},   {0.0f, 1.0f} }); // 1
-    addVertexAndTextureCoordinate({ {-0.5f, -0.5f, -0.5f},  {0.0f, 0.0f} }); // 0
+    // Texture coordinates
+    glm::vec2 bottomLeft = { 0.0f, 0.0f };
+    glm::vec2 topRight = { 1.0f, 1.0f };
+    glm::vec2 topLeft = { 0.0f, 1.0f };
+    glm::vec2 bottomRight = { 1.0f, 0.0f };
 
-    // Back face (reversed order)
-    addVertexAndTextureCoordinate({ {0.5f, -0.5f, 0.5f},    {1.0f, 0.0f} }); // 7
-    addVertexAndTextureCoordinate({ {0.5f, 0.5f, 0.5f},     {1.0f, 1.0f} }); // 6
-    addVertexAndTextureCoordinate({ {-0.5f, 0.5f, 0.5f},    {0.0f, 1.0f} }); // 5
-    addVertexAndTextureCoordinate({ {-0.5f, -0.5f, 0.5f},   {0.0f, 0.0f} }); // 4
+    // Front face
+    addVertexAndTextureCoordinate({ {-0.5f, -0.5f, -0.5f}, bottomLeft });       // Bottom left
+    addVertexAndTextureCoordinate({ {0.5f, -0.5f, -0.5f}, bottomRight });      // Bottom right
+    addVertexAndTextureCoordinate({ {0.5f, 0.5f, -0.5f}, topRight });          // Top right
+    addVertexAndTextureCoordinate({ {-0.5f, 0.5f, -0.5f}, topLeft });          // Top left
+
+    // Back face
+    addVertexAndTextureCoordinate({ {-0.5f, -0.5f, 0.5f}, bottomLeft });       // Bottom left
+    addVertexAndTextureCoordinate({ {0.5f, -0.5f, 0.5f}, bottomRight });      // Bottom right
+    addVertexAndTextureCoordinate({ {0.5f, 0.5f, 0.5f}, topRight });          // Top right
+    addVertexAndTextureCoordinate({ {-0.5f, 0.5f, 0.5f}, topLeft });          // Top left
 
     // Define the surfaces using vertex indices
     addSurface({ 0, 1, 2, 3 }); // Front face

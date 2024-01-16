@@ -35,10 +35,9 @@ void RenderedObject::loadTexture() {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
-
         // Set texture wrapping to clamp to edge
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
 
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
@@ -49,8 +48,6 @@ void RenderedObject::loadTexture() {
         std::cout << "Failed to load texture: " << texturePath << std::endl;
     }
 }
-
-
 
 void RenderedObject::draw() {
     glPushMatrix();
@@ -64,11 +61,14 @@ void RenderedObject::draw() {
 
     glBegin(GL_QUADS);
 
+    int surfaceCounter = 0;
+
     for (const auto& surface : surfaces) {
         for (const auto& vertexIndex : surface) {
 
             glm::vec3 vertex = vertices[vertexIndex].first;
             glm::vec2 textureCoord = vertices[vertexIndex].second;
+            textureCoord += 10;
 
             if (textureID != 0) {
                 glTexCoord2f(textureCoord.x, textureCoord.y);
@@ -77,6 +77,7 @@ void RenderedObject::draw() {
             //  glColor3fv(glm::value_ptr(color));
             glVertex3fv(glm::value_ptr(vertex));
         }
+        surfaceCounter++;
     }
 
     glEnd();
