@@ -1,9 +1,9 @@
 #include "CubeBlock.h"
 
 // Init
-CubeBlock::CubeBlock() {
+CubeBlock::CubeBlock() : RenderedObject::RenderedObject()  {
 
-    const char* texturePath = "D:/JonsTests/terrain.png";    // Temp default texture
+    const char* texturePath = "C:/Users/jonat/texture/terrain.png";    // Temp default texture
     RenderedObject::loadTexture(texturePath);
 
     // Texture coordinates

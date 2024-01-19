@@ -12,7 +12,7 @@ WorldManager::WorldManager() {
     }
 
 	WorldManager::loadBlocks();
-    std::cout << "[World Manager]:Blocks loaded";
+    std::cout << "[World Manager]:Blocks loaded.\n";
 
 }
 
@@ -46,8 +46,9 @@ void WorldManager::placeBlock(const glm::vec3 position) {
 void WorldManager::loadBlocks() {
 
 	//No blocks yet
-    CubeBlock* block = new CubeBlock;
-	blocks.push_back(block);	//Index 0 in cubes
+	blocks.push_back(new CubeBlock());	//Index 0 in cubes
+
+    std::vector<CubeBlock> objList;
 
 }
 
