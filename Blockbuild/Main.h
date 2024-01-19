@@ -8,6 +8,8 @@
 #include "CubeBlock.h"
 #include "Camera.h"
 #include "InputHandler.h"
+#include "WorldManager.h"
+#include "GravelBlock.h"
 
 void renderLoop();
 void reshape(int width, int height);

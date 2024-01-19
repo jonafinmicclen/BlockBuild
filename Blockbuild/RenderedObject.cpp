@@ -21,9 +21,8 @@ void RenderedObject::addSurface(const std::vector<int>& surfaceIndices) {
     surfaces.push_back(surfaceIndices);
 }
 
-void RenderedObject::loadTexture() {
+void RenderedObject::loadTexture(const char* texturePath) {
 
-    const char* texturePath = "C:/Users/Jonathan McClen/Documents/textures/cobblestone.png";    // Temp default texture
     int width, height, channels;
     unsigned char* image = stbi_load(texturePath, &width, &height, &channels, STBI_rgb);
 
@@ -45,11 +44,11 @@ void RenderedObject::loadTexture() {
         stbi_image_free(image);
     }
     else {
-        std::cout << "Failed to load texture: " << texturePath << std::endl;
+        std::cout << "[RenderedObject]:Failed to load texture\n";
     }
 }
 
-void RenderedObject::draw() {
+void RenderedObject::draw(const glm::vec3 position) {
     glPushMatrix();
     glTranslatef(position.x, position.y, position.z);
     glRotatef(rotation_angle, rotation_axis.x, rotation_axis.y, rotation_axis.z);

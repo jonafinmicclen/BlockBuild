@@ -6,7 +6,10 @@
 
 class CubeBlock : public RenderedObject, public PhysicsObject{
 public:
-	CubeBlock(glm::vec3 newPosition);
+	std::pair<float, float> texturePos = { 0.0f, 0.0f };	//Specifies which texture in terrain.png
+
+	CubeBlock();
+
 };
 
 #endif // CUBEBLOCK_H

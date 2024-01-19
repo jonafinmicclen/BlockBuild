@@ -17,7 +17,6 @@ public:
     std::vector<std::pair<glm::vec3, glm::vec2>> vertices = {};
     std::vector<std::vector<int>> surfaces = {};
 
-    glm::vec3 position;
     glm::vec3 rotation_axis;
 
     float rotation_angle;
@@ -28,8 +27,8 @@ public:
     void addVertexAndTextureCoordinate(const std::pair<glm::vec3, glm::vec2>& vertex);
     void addSurface(const std::vector<int>& surfaceIndices);
     void setColor(const glm::vec3& newColor);
-    void loadTexture(); // const char* texturePath
-    void draw();
+    void loadTexture(const char* texturePath);
+    void draw(const glm::vec3 position);
 };
 
 #endif // RENDERED_OBJECT_H

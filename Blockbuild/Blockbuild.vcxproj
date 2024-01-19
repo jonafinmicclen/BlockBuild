@@ -130,6 +130,7 @@
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CubeBlock.cpp" />
+    <ClCompile Include="GravelBlock.cpp" />
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="InputHandler.h" />
     <ClCompile Include="PhysicsObject.cpp" />
@@ -137,14 +138,17 @@
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Jonathan McClen\source\repos\Blockbuild\Blockbuild\include\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="WorldManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CubeBlock.h" />
+    <ClInclude Include="GravelBlock.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="PhysicsObject.h" />
     <ClInclude Include="RenderedObject.h" />
     <ClInclude Include="stb_image.h" />
+    <ClInclude Include="WorldManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

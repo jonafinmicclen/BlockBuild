@@ -1,9 +1,10 @@
 #include "CubeBlock.h"
 
 // Init
-CubeBlock::CubeBlock(glm::vec3 startPosition) : RenderedObject() {
-    position = startPosition;
-    RenderedObject::loadTexture();
+CubeBlock::CubeBlock() : RenderedObject() {
+
+    const char* texturePath = "D:/JonsTests/terrain.png";    // Temp default texture
+    RenderedObject::loadTexture(texturePath);
 
     // Texture coordinates
     glm::vec2 bottomLeft = { 0.0f, 0.0f };
