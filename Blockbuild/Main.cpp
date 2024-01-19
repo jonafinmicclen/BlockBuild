@@ -5,6 +5,7 @@ float MOUSE_SENSITIVITY = 0.001f;
 Camera userCamera;
 InputHandler inputs;
 WorldManager worldMan;
+CubeBlock testCube;
 
 void renderLoop() {
 
@@ -86,7 +87,8 @@ int main(int argc, char** argv) {
     glutDisplayFunc(renderLoop);
     glutReshapeFunc(reshape);
     glutTimerFunc(25, physicsLoop, 0);  // Initial call to update after 25 milliseconds
-
+    worldMan.deleteBlocks();
+    worldMan.loadBlocks();
     glutMainLoop();
     return 0;
 }

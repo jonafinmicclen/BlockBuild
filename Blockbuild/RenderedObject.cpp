@@ -65,6 +65,8 @@ void RenderedObject::draw(const glm::vec3 position) {
     for (const auto& surface : surfaces) {
         for (const auto& vertexIndex : surface) {
 
+            std::cout << "EKO";
+
             glm::vec3 vertex = vertices[vertexIndex].first;
             glm::vec2 textureCoord = vertices[vertexIndex].second;
             textureCoord += 10;
