@@ -131,6 +131,7 @@
     <ClCompile Include="BedrockBlock.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CubeBlock.cpp" />
+    <ClCompile Include="DiamondOreBlock.cpp" />
     <ClCompile Include="GlassBlock.cpp" />
     <ClCompile Include="GravelBlock.cpp" />
     <ClCompile Include="InputHandler.cpp" />
@@ -149,6 +150,7 @@
     <ClInclude Include="BedrockBlock.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CubeBlock.h" />
+    <ClInclude Include="DiamondOreBlock.h" />
     <ClInclude Include="GlassBlock.h" />
     <ClInclude Include="PlayerManager.h" />
     <ClInclude Include="StoneBlock.h" />

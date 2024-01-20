@@ -13,7 +13,7 @@ void renderLoop() {
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-
+    glEnable(GL_BLEND);
     //Draw shit and camera shit
     userCamera.autoLookAt();
     manager->drawWorld();
@@ -94,6 +94,9 @@ int main(int argc, char** argv) {
     manager = new WorldManager(); // Creates world manager
     playerManager = new PlayerManager();
     playerManager->setNumOfItems(manager->getNumOfBlocks());
+
+    //Generate world
+    manager->generateWorld();
 
     glutDisplayFunc(renderLoop);
     glutReshapeFunc(reshape);

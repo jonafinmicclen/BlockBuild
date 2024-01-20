@@ -58,6 +58,7 @@ void WorldManager::loadBlocks() {
     blocks.push_back(new BedrockBlock());
     blocks.push_back(new WoodplanksBlock());
     blocks.push_back(new GlassBlock());
+    blocks.push_back(new DiamondOreBlock());
 
 }
 
@@ -82,6 +83,22 @@ void WorldManager::drawWorld() {
                 if (blockInPlace != -1) {
                     blocks[blockInPlace]->draw({ x, y, z });
                 }
+            }
+        }
+    }
+}
+
+void WorldManager::generateWorld() {
+
+    for (int x = 0; x < worldLength; ++x) {
+        for (int z = 0; z < worldLength; ++z) {
+
+
+            int height = round(sin(x*z/69)*20);
+            std::cout << height;
+
+            for (int y = 0; y < height; ++y) {
+                placeBlock({ { x,y ,z }, 1 });
             }
         }
     }

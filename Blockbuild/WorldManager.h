@@ -7,6 +7,7 @@
 #include "BedrockBlock.h"
 #include "WoodplanksBlock.h"
 #include "GlassBlock.h"
+#include "DiamondOreBlock.h"
 
 class WorldManager {
 public:
@@ -23,6 +24,7 @@ public:
 	void deleteBlocks();
 	void drawWorld();
 	void placeBlock(const std::pair<glm::vec3, int> positionAndBlockNo);
+	void generateWorld();
 };
 
 #endif // WORLDMANAGER_H
