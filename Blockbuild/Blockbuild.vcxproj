@@ -128,21 +128,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BedrockBlock.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CubeBlock.cpp" />
     <ClCompile Include="GravelBlock.cpp" />
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="InputHandler.h" />
     <ClCompile Include="PhysicsObject.cpp" />
+    <ClCompile Include="PlayerManager.cpp" />
     <ClCompile Include="RenderedObject.cpp">
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Jonathan McClen\source\repos\Blockbuild\Blockbuild\include\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="StoneBlock.cpp" />
     <ClCompile Include="WorldManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BedrockBlock.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CubeBlock.h" />
+    <ClInclude Include="PlayerManager.h" />
+    <ClInclude Include="StoneBlock.h" />
     <ClInclude Include="GravelBlock.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="PhysicsObject.h" />

@@ -3,6 +3,8 @@
 
 #include "CubeBlock.h"
 #include "GravelBlock.h"
+#include "StoneBlock.h"
+#include "BedrockBlock.h"
 
 class WorldManager {
 public:
@@ -14,10 +16,11 @@ public:
 	std::vector<CubeBlock*> blocks;
 	int world[worldLength][worldLength][worldHeight];
 
+	int getNumOfBlocks();
 	void loadBlocks();
 	void deleteBlocks();
 	void drawWorld();
-	void placeBlock(const glm::vec3 position);
+	void placeBlock(const std::pair<glm::vec3, int> positionAndBlockNo);
 };
 
 #endif // WORLDMANAGER_H

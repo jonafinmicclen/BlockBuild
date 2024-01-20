@@ -5,6 +5,7 @@ float MOUSE_SENSITIVITY = 0.001f;
 Camera userCamera;
 InputHandler inputs;
 WorldManager* manager; // Declare as a pointer
+PlayerManager* playerManager;
 
 void renderLoop() {
 
@@ -50,9 +51,11 @@ void physicsLoop(int value) {
             userCamera.moveRelativeStrafe(0.1f);
             break;
         case 'T':
-            manager->placeBlock(userCamera.position);
+            manager->placeBlock({userCamera.position, playerManager->blockInHand});
             break;
         case 'Y':
+            playerManager->selectNextBlock();
+            std::cout << playerManager->blockInHand;
             break;
         }
     }
@@ -81,6 +84,8 @@ int main(int argc, char** argv) {
     glClearColor(0.0, 0.0, 0.0, 1.0);
     
     manager = new WorldManager(); // Creates world manager
+    playerManager = new PlayerManager();
+    playerManager->setNumOfItems(manager->getNumOfBlocks());
 
     glutDisplayFunc(renderLoop);
     glutReshapeFunc(reshape);

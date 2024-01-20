@@ -16,22 +16,29 @@ WorldManager::WorldManager() {
 
 }
 
-void WorldManager::placeBlock(const glm::vec3 position) {
+int WorldManager::getNumOfBlocks() {
+    return blocks.size();
+}
+
+void WorldManager::placeBlock(const std::pair<glm::vec3, int> positionAndBlockNo) {
     // Round each component of the vector
+    auto position = positionAndBlockNo.first;
+    auto blockNo = positionAndBlockNo.second;
+
     glm::ivec3 realPosition(
         std::round(position.x),
         std::round(position.y),
         std::round(position.z)
     );
 
-    // Check if the rounded position is within the bounds of your world
+    // Check if the rounded position is within the bounds of world
     if (realPosition.x >= 0 && realPosition.x < worldLength &&
         realPosition.y >= 0 && realPosition.y < worldLength &&
         realPosition.z >= 0 && realPosition.z < worldHeight) {
 
         if (world[realPosition.x][realPosition.y][realPosition.z] == -1) {
             // Place the block at the rounded position
-            world[realPosition.x][realPosition.y][realPosition.z] = 0;
+            world[realPosition.x][realPosition.y][realPosition.z] = blockNo;
         }
         else {
             std::cout << "[WorldManager]:Player attempted to place block in non-empty location.\n";
@@ -45,8 +52,10 @@ void WorldManager::placeBlock(const glm::vec3 position) {
 
 void WorldManager::loadBlocks() {
 
-	//No blocks yet
+	// Blocks in game
 	blocks.push_back(new GravelBlock());	//Index 0 in cubes
+    blocks.push_back(new StoneBlock());
+    blocks.push_back(new BedrockBlock());
 
 }
 
