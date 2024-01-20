@@ -71,7 +71,7 @@ void RenderedObject::draw(const glm::vec3 position) {
             vertexCounter++;
 
             if (textureID != 0) {
-                glTexCoord2f(textureCoord.x, textureCoord.y);
+                glTexCoord2f(textureCoord.x + texturePos.first/16, textureCoord.y + texturePos.second/16);
             }
             glVertex3fv(glm::value_ptr(vertex));
 

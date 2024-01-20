@@ -9,7 +9,6 @@ public:
 	
 	CubeBlock();
 
-	std::pair<float, float> texturePos;
 	void setTexturePos(const std::pair<float, float> position);
 	void setVertexAndCoords();
 

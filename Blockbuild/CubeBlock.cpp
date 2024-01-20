@@ -9,6 +9,8 @@ void CubeBlock::setVertexAndCoords() {
     const char* texturePath = "D:/JonsTests/realTerrain.png";    // Temp default texture
     RenderedObject::loadTexture(texturePath);
 
+    std::cout << "setting vertex and coords";
+
     // Texture coordinates
     glm::vec2 bottomLeft = { 0.0f / 16 + texturePos.first / 16, 0.0f / 16 + texturePos.second / 16 };
     glm::vec2 topRight = { 1.0f / 16 + texturePos.first / 16, 1.0f / 16 + texturePos.second / 16 };

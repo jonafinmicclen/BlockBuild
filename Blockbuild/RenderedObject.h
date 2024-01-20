@@ -23,6 +23,7 @@ public:
     glm::vec3 color;
 
     GLuint textureID;  // Texture ID for the loaded texture
+    std::pair<float, float> texturePos;
 
     void addVertex(const glm::vec3& vertex);
     void addSurfaceAndTextureCoords(const std::pair< std::vector<int>, std::vector<glm::vec2> >& surface);

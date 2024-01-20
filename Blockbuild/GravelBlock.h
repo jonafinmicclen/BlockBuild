@@ -5,7 +5,6 @@
 
 class GravelBlock : public CubeBlock {
 public:
-     // Change the value before base class constructor
     GravelBlock();
 };
 
