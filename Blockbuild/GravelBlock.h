@@ -5,7 +5,7 @@
 
 class GravelBlock : public CubeBlock {
 public:
-    std::pair<float, float> texturePos = { 5.0f, 4.0f }; // Change the value before base class constructor
+     // Change the value before base class constructor
     GravelBlock();
 };
 
