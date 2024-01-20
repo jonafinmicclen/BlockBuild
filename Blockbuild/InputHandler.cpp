@@ -146,6 +146,16 @@ std::vector<char> InputHandler::getPressed() {
     RIGHT_PRESSED = false;
     MB_RIGHT_PRESSED = false;
     MB_LEFT_PRESSED = false;
+    ZERO_PRESSED = false;
+    ONE_PRESSED = false;
+    TWO_PRESSED = false;
+    THREE_PRESSED = false;
+    FOUR_PRESSED = false;
+    FIVE_PRESSED = false;
+    SIX_PRESSED = false;
+    SEVEN_PRESSED = false;
+    EIGHT_PRESSED = false;
+    NINE_PRESSED = false;
 
     return pressedBuffer;
 }

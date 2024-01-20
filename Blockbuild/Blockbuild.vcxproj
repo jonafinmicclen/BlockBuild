@@ -131,6 +131,7 @@
     <ClCompile Include="BedrockBlock.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CubeBlock.cpp" />
+    <ClCompile Include="GlassBlock.cpp" />
     <ClCompile Include="GravelBlock.cpp" />
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="InputHandler.h" />
@@ -141,12 +142,14 @@
     </ClCompile>
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="StoneBlock.cpp" />
+    <ClCompile Include="WoodplanksBlock.cpp" />
     <ClCompile Include="WorldManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BedrockBlock.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CubeBlock.h" />
+    <ClInclude Include="GlassBlock.h" />
     <ClInclude Include="PlayerManager.h" />
     <ClInclude Include="StoneBlock.h" />
     <ClInclude Include="GravelBlock.h" />
@@ -154,6 +157,7 @@
     <ClInclude Include="PhysicsObject.h" />
     <ClInclude Include="RenderedObject.h" />
     <ClInclude Include="stb_image.h" />
+    <ClInclude Include="WoodplanksBlock.h" />
     <ClInclude Include="WorldManager.h" />
   </ItemGroup>
   <ItemGroup>

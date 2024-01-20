@@ -5,13 +5,15 @@
 #include "GravelBlock.h"
 #include "StoneBlock.h"
 #include "BedrockBlock.h"
+#include "WoodplanksBlock.h"
+#include "GlassBlock.h"
 
 class WorldManager {
 public:
 	WorldManager();
 
-	static const int worldHeight = 10;
-	static const int worldLength = 10;
+	static const int worldHeight = 30;
+	static const int worldLength = 20;
 
 	std::vector<CubeBlock*> blocks;
 	int world[worldLength][worldLength][worldHeight];
