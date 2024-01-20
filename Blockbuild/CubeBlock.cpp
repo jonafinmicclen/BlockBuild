@@ -6,11 +6,13 @@ CubeBlock::CubeBlock() : RenderedObject::RenderedObject()  {
     const char* texturePath = "C:/Users/jonat/texture/terrain.png";    // Temp default texture
     RenderedObject::loadTexture(texturePath);
 
+    texturePos.first = 1;
+    texturePos.second = 2;
     // Texture coordinates
-    glm::vec2 bottomLeft = { 0.0f, 0.0f };
-    glm::vec2 topRight = { 1.0f, 1.0f };
-    glm::vec2 topLeft = { 0.0f, 1.0f };
-    glm::vec2 bottomRight = { 1.0f, 0.0f };
+    glm::vec2 bottomLeft = { 0.0f / 16 + texturePos.first / 16, 0.0f / 16 + texturePos.second / 16 };
+    glm::vec2 topRight = { 1.0f / 16 + texturePos.first / 16, 1.0f / 16 + texturePos.second / 16 };
+    glm::vec2 topLeft = { 0.0f / 16 + texturePos.first / 16, 1.0f / 16 + texturePos.second / 16 };
+    glm::vec2 bottomRight = { 1.0f / 16 + texturePos.first / 16, 0.0f / 16 + texturePos.second / 16 };
 
     // Front face
     addVertexAndTextureCoordinate({ {-0.5f, -0.5f, -0.5f}, bottomLeft });       // Bottom left

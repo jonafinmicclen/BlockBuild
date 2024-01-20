@@ -2,8 +2,6 @@
 
 float MOUSE_SENSITIVITY = 0.001f;
 
-CubeBlock testCubeObject = CubeBlock();
-std::vector<CubeBlock> objList;
 Camera userCamera;
 InputHandler inputs;
 WorldManager* manager; // Declare as a pointer
@@ -17,12 +15,7 @@ void renderLoop() {
 
     //Draw shit and camera shit
     userCamera.autoLookAt();
-    testCubeObject.draw({ 0,0,0 });
     manager->drawWorld();
-
-    for (auto& objToDraw : objList) {
-        objToDraw.draw({ 0,1,0 });
-    }
 
     glutSwapBuffers();
 }
@@ -57,7 +50,6 @@ void physicsLoop(int value) {
             userCamera.moveRelativeStrafe(0.1f);
             break;
         case 'T':
-            objList.push_back(CubeBlock());
             manager->placeBlock(userCamera.position);
             break;
         case 'Y':
@@ -83,6 +75,7 @@ int main(int argc, char** argv) {
 
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
+    glutInitWindowSize(1920, 1080);
     glutCreateWindow("BlockBuild");
 
     glEnable(GL_DEPTH_TEST);

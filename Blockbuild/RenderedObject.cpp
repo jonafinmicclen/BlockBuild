@@ -60,25 +60,17 @@ void RenderedObject::draw(const glm::vec3 position) {
 
     glBegin(GL_QUADS);
 
-    int surfaceCounter = 0;
-
     for (const auto& surface : surfaces) {
         for (const auto& vertexIndex : surface) {
 
-            std::cout << "EKO";
-
             glm::vec3 vertex = vertices[vertexIndex].first;
             glm::vec2 textureCoord = vertices[vertexIndex].second;
-            textureCoord += 10;
 
             if (textureID != 0) {
                 glTexCoord2f(textureCoord.x, textureCoord.y);
             }
-
-            //  glColor3fv(glm::value_ptr(color));
             glVertex3fv(glm::value_ptr(vertex));
         }
-        surfaceCounter++;
     }
 
     glEnd();

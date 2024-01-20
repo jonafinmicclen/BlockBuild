@@ -46,9 +46,7 @@ void WorldManager::placeBlock(const glm::vec3 position) {
 void WorldManager::loadBlocks() {
 
 	//No blocks yet
-	blocks.push_back(new CubeBlock());	//Index 0 in cubes
-
-    std::vector<CubeBlock> objList;
+	blocks.push_back(new GravelBlock());	//Index 0 in cubes
 
 }
 

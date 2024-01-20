@@ -6,8 +6,7 @@
 
 class CubeBlock : public RenderedObject, public PhysicsObject{
 public:
-	std::pair<float, float> texturePos = { 0.0f, 0.0f };	//Specifies which texture in terrain.png
-
+	std::pair<float, float> texturePos;
 	CubeBlock();
 
 };
