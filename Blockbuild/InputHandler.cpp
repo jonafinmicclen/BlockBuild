@@ -66,6 +66,7 @@ void InputHandler::_keyboard_listener() {
             RIGHT_PRESSED = true;
             pressedKeys.push_back('R');
         }
+        //MOUSE KEYS
         if ((GetAsyncKeyState(VK_LBUTTON) & 0x8000) && !MB_LEFT_PRESSED) {
             MB_LEFT_PRESSED = true;
             pressedKeys.push_back('T');
@@ -73,6 +74,47 @@ void InputHandler::_keyboard_listener() {
         if ((GetAsyncKeyState(VK_RBUTTON) & 0x8000) && !MB_RIGHT_PRESSED) {
             MB_RIGHT_PRESSED = true;
             pressedKeys.push_back('Y');
+        }
+        //NUMBER KEYS
+        if ((GetAsyncKeyState('0') & 0x8000) && !ZERO_PRESSED) {
+            ZERO_PRESSED = true;
+            pressedKeys.push_back('0');
+        }
+        if ((GetAsyncKeyState('1') & 0x8000) && !ONE_PRESSED) {
+            ONE_PRESSED = true;
+            pressedKeys.push_back('1');
+        }
+        if ((GetAsyncKeyState('2') & 0x8000) && !TWO_PRESSED) {
+            TWO_PRESSED = true;
+            pressedKeys.push_back('2');
+        }
+        if ((GetAsyncKeyState('3') & 0x8000) && !THREE_PRESSED) {
+            THREE_PRESSED = true;
+            pressedKeys.push_back('3');
+        }
+        if ((GetAsyncKeyState('4') & 0x8000) && !FOUR_PRESSED) {
+            FOUR_PRESSED = true;
+            pressedKeys.push_back('4');
+        }
+        if ((GetAsyncKeyState('5') & 0x8000) && !FIVE_PRESSED) {
+            FIVE_PRESSED = true;
+            pressedKeys.push_back('5');
+        }
+        if ((GetAsyncKeyState('6') & 0x8000) && !SIX_PRESSED) {
+            SIX_PRESSED = true;
+            pressedKeys.push_back('6');
+        }
+        if ((GetAsyncKeyState('7') & 0x8000) && !SEVEN_PRESSED) {
+            SEVEN_PRESSED = true;
+            pressedKeys.push_back('7');
+        }
+        if ((GetAsyncKeyState('8') & 0x8000) && !EIGHT_PRESSED) {
+            EIGHT_PRESSED = true;
+            pressedKeys.push_back('8');
+        }
+        if ((GetAsyncKeyState('9') & 0x8000) && !NINE_PRESSED) {
+            NINE_PRESSED = true;
+            pressedKeys.push_back('9');
         }
     }
 }
@@ -107,3 +149,5 @@ std::vector<char> InputHandler::getPressed() {
 
     return pressedBuffer;
 }
+
+

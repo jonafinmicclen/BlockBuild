@@ -45,6 +45,17 @@ private:
 	bool RIGHT_PRESSED = false;
 	bool MB_RIGHT_PRESSED = false;
 	bool MB_LEFT_PRESSED = false;
+
+	bool ZERO_PRESSED = false;
+	bool ONE_PRESSED = false;
+	bool TWO_PRESSED = false;
+	bool THREE_PRESSED = false;
+	bool FOUR_PRESSED = false;
+	bool FIVE_PRESSED = false;
+	bool SIX_PRESSED = false;
+	bool SEVEN_PRESSED = false;
+	bool EIGHT_PRESSED = false;
+	bool NINE_PRESSED = false;
 };
 
 #endif // INPUTHANDLER_H
