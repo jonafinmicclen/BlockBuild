@@ -15,7 +15,7 @@ public:
     RenderedObject();
 
     std::vector<std::pair<glm::vec3, glm::vec2>> vertices = {};
-    std::vector<std::vector<int>> surfaces = {};
+    std::vector<std::pair<std::vector<int>, std::vector<glm::vec2>>> surfaces;
 
     glm::vec3 rotation_axis;
 
@@ -25,7 +25,7 @@ public:
     GLuint textureID;  // Texture ID for the loaded texture
 
     void addVertexAndTextureCoordinate(const std::pair<glm::vec3, glm::vec2>& vertex);
-    void addSurface(const std::vector<int>& surfaceIndices);
+    void addSurface(const std::pair< std::vector<int>, std::vector<glm::vec2> >& surface);
     void setColor(const glm::vec3& newColor);
     void loadTexture(const char* texturePath);
     void draw(const glm::vec3 position);

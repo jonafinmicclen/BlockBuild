@@ -17,8 +17,8 @@ void RenderedObject::addVertexAndTextureCoordinate(const std::pair<glm::vec3, gl
     vertices.push_back(vertex);
 }
 
-void RenderedObject::addSurface(const std::vector<int>& surfaceIndices) {
-    surfaces.push_back(surfaceIndices);
+void RenderedObject::addSurface(const std::pair< std::vector<int>, std::vector<glm::vec2> >& surface) {
+    surfaces.push_back(surface);
 }
 
 void RenderedObject::loadTexture(const char* texturePath) {
@@ -61,15 +61,22 @@ void RenderedObject::draw(const glm::vec3 position) {
     glBegin(GL_QUADS);
 
     for (const auto& surface : surfaces) {
-        for (const auto& vertexIndex : surface) {
+        //auto rSurface = surface.first;  //Should make these pointers?
+        //auto rTextureCoords = surface.second;
 
+        int vertexCounter = 0;
+
+        for (const auto& vertexIndex : surface.first) {
+
+            glm::vec2 textureCoord = surface.second[vertexCounter];    //Use new set for uv coords for each face
             glm::vec3 vertex = vertices[vertexIndex].first;
-            glm::vec2 textureCoord = vertices[vertexIndex].second;
+            vertexCounter++;
 
             if (textureID != 0) {
                 glTexCoord2f(textureCoord.x, textureCoord.y);
             }
             glVertex3fv(glm::value_ptr(vertex));
+
         }
     }
 
