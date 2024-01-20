@@ -13,11 +13,11 @@ void RenderedObject::setColor(const glm::vec3& newColor) {
     color = newColor;
 }
 
-void RenderedObject::addVertexAndTextureCoordinate(const std::pair<glm::vec3, glm::vec2>& vertex) {
+void RenderedObject::addVertex(const glm::vec3& vertex) {
     vertices.push_back(vertex);
 }
 
-void RenderedObject::addSurface(const std::pair< std::vector<int>, std::vector<glm::vec2> >& surface) {
+void RenderedObject::addSurfaceAndTextureCoords(const std::pair< std::vector<int>, std::vector<glm::vec2> >& surface) {
     surfaces.push_back(surface);
 }
 
@@ -61,15 +61,13 @@ void RenderedObject::draw(const glm::vec3 position) {
     glBegin(GL_QUADS);
 
     for (const auto& surface : surfaces) {
-        //auto rSurface = surface.first;  //Should make these pointers?
-        //auto rTextureCoords = surface.second;
 
         int vertexCounter = 0;
 
         for (const auto& vertexIndex : surface.first) {
 
             glm::vec2 textureCoord = surface.second[vertexCounter];    //Use new set for uv coords for each face
-            glm::vec3 vertex = vertices[vertexIndex].first;
+            glm::vec3 vertex = vertices[vertexIndex];
             vertexCounter++;
 
             if (textureID != 0) {

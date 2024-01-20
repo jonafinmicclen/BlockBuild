@@ -16,22 +16,22 @@ CubeBlock::CubeBlock() : RenderedObject::RenderedObject()  {
     std::vector<glm::vec2> allCornersCoords = { topLeft , topRight, bottomRight, bottomLeft };
 
     // Front face
-    addVertexAndTextureCoordinate({ {-0.5f, -0.5f, -0.5f}, bottomLeft });       // Bottom left
-    addVertexAndTextureCoordinate({ {0.5f, -0.5f, -0.5f}, bottomRight });      // Bottom right
-    addVertexAndTextureCoordinate({ {0.5f, 0.5f, -0.5f}, topRight });          // Top right
-    addVertexAndTextureCoordinate({ {-0.5f, 0.5f, -0.5f}, topLeft });          // Top left
+    addVertex({-0.5f, -0.5f, -0.5f});       // Bottom left
+    addVertex({0.5f, -0.5f, -0.5f});      // Bottom right
+    addVertex({0.5f, 0.5f, -0.5f});          // Top right
+    addVertex({-0.5f, 0.5f, -0.5f});          // Top left
 
     // Back face
-    addVertexAndTextureCoordinate({ {-0.5f, -0.5f, 0.5f}, bottomLeft });       // Bottom left
-    addVertexAndTextureCoordinate({ {0.5f, -0.5f, 0.5f}, bottomRight });      // Bottom right
-    addVertexAndTextureCoordinate({ {0.5f, 0.5f, 0.5f}, topRight });          // Top right
-    addVertexAndTextureCoordinate({ {-0.5f, 0.5f, 0.5f}, topLeft });          // Top left
+    addVertex({-0.5f, -0.5f, 0.5f});       // Bottom left
+    addVertex({0.5f, -0.5f, 0.5f});      // Bottom right
+    addVertex({0.5f, 0.5f, 0.5f});          // Top right
+    addVertex({-0.5f, 0.5f, 0.5f});          // Top left
 
     // Define the surfaces using vertex indices
-    addSurface({ { 0, 1, 2, 3 }, allCornersCoords }); // Front face
-    addSurface({ { 4, 5, 6, 7 }, allCornersCoords }); // Back face
-    addSurface({ { 0, 3, 7, 4 }, allCornersCoords }); // Left face
-    addSurface({ { 1, 5, 6, 2 }, allCornersCoords }); // Right face
-    addSurface({ { 1, 0, 4, 5 }, allCornersCoords }); // Top face
-    addSurface({ { 3, 2, 6, 7 }, allCornersCoords }); // Bottom face
+    addSurfaceAndTextureCoords({ { 0, 1, 2, 3 }, allCornersCoords }); // Front face
+    addSurfaceAndTextureCoords({ { 4, 5, 6, 7 }, allCornersCoords }); // Back face
+    addSurfaceAndTextureCoords({ { 0, 3, 7, 4 }, allCornersCoords }); // Left face
+    addSurfaceAndTextureCoords({ { 1, 5, 6, 2 }, allCornersCoords }); // Right face
+    addSurfaceAndTextureCoords({ { 1, 0, 4, 5 }, allCornersCoords }); // Top face
+    addSurfaceAndTextureCoords({ { 3, 2, 6, 7 }, allCornersCoords }); // Bottom face
 }
