@@ -77,15 +77,15 @@ int main(int argc, char** argv) {
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
     glutInitWindowSize(1920, 1080);
     glutCreateWindow("BlockBuild");
-
     glEnable(GL_DEPTH_TEST);
     glClearColor(0.0, 0.0, 0.0, 1.0);
+    
+    manager = new WorldManager(); // Creates world manager
 
     glutDisplayFunc(renderLoop);
     glutReshapeFunc(reshape);
     // Delayed instantiation of WorldManager
     glutTimerFunc(25, [](int) {
-        manager = new WorldManager(); // Dynamically allocate memory
         glutTimerFunc(25, physicsLoop, 0);  // Initial call to update after 25 milliseconds
         }, 0);
 
