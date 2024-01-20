@@ -2,10 +2,10 @@
 
 float MOUSE_SENSITIVITY = 0.001f;
 
-CubeBlock testCubeObject = CubeBlock({ 0,0,0 });
-std::vector<CubeBlock> objList;
 Camera userCamera;
 InputHandler inputs;
+WorldManager* manager; // Declare as a pointer
+PlayerManager* playerManager;
 
 void renderLoop() {
 
@@ -16,11 +16,7 @@ void renderLoop() {
 
     //Draw shit and camera shit
     userCamera.autoLookAt();
-    testCubeObject.draw();
-
-    for (auto& objToDraw : objList) {
-        objToDraw.draw();
-    }
+    manager->drawWorld();
 
     glutSwapBuffers();
 }
@@ -55,9 +51,11 @@ void physicsLoop(int value) {
             userCamera.moveRelativeStrafe(0.1f);
             break;
         case 'T':
-            objList.push_back(CubeBlock({userCamera.position}));
+            manager->placeBlock({userCamera.position, playerManager->blockInHand});
             break;
         case 'Y':
+            playerManager->selectNextBlock();
+            std::cout << playerManager->blockInHand;
             break;
         }
     }
@@ -80,14 +78,21 @@ int main(int argc, char** argv) {
 
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-    glutCreateWindow("Moving 3D Objects");
-
+    glutInitWindowSize(1920, 1080);
+    glutCreateWindow("BlockBuild");
     glEnable(GL_DEPTH_TEST);
     glClearColor(0.0, 0.0, 0.0, 1.0);
+    
+    manager = new WorldManager(); // Creates world manager
+    playerManager = new PlayerManager();
+    playerManager->setNumOfItems(manager->getNumOfBlocks());
 
     glutDisplayFunc(renderLoop);
     glutReshapeFunc(reshape);
-    glutTimerFunc(25, physicsLoop, 0);  // Initial call to update after 25 milliseconds
+    // Delayed instantiation of WorldManager
+    glutTimerFunc(25, [](int) {
+        glutTimerFunc(25, physicsLoop, 0);  // Initial call to update after 25 milliseconds
+        }, 0);
 
     glutMainLoop();
     return 0;

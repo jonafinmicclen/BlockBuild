@@ -6,7 +6,12 @@
 
 class CubeBlock : public RenderedObject, public PhysicsObject{
 public:
-	CubeBlock(glm::vec3 newPosition);
+	
+	CubeBlock();
+
+	void setTexturePos(const std::pair<float, float> position);
+	void setVertexAndCoords();
+
 };
 
 #endif // CUBEBLOCK_H
