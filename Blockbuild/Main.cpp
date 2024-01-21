@@ -1,7 +1,5 @@
 #include "Main.h"
 
-float MOUSE_SENSITIVITY = 0.001f;
-
 Camera userCamera;
 InputHandler inputs;
 WorldManager* manager; // Declare as a pointer
@@ -20,6 +18,8 @@ void renderLoop() {
 
     glutSwapBuffers();
 }
+
+
 
 void reshape(int width, int height) {
     glViewport(0, 0, width, height);
@@ -70,10 +70,8 @@ void physicsLoop(int value) {
 
     // Mouse inputs
     glm::vec2 mouseVec = inputs.getMouseMovement();
-    float length = glm::length(mouseVec);
-    if (length != 0) {
-        mouseVec /= length;
-        userCamera.rotateLook(MOUSE_SENSITIVITY * length, glm::vec3(mouseVec.y, mouseVec.x, 0));
+    if (glm::length(mouseVec) != 0) {
+        userCamera.rotateLookByDMXY(mouseVec);
     }
 
     //Update shit
