@@ -55,7 +55,6 @@ void physicsLoop(int value) {
             break;
         case 'Y':
             playerManager->selectNextBlock();
-            std::cout << playerManager->blockInHand;
             break;
         default:
             // Check if it's an integer character
@@ -75,6 +74,7 @@ void physicsLoop(int value) {
     }
 
     //Update shit
+    playerManager->updateOnTick();
     userCamera.update();
 
     glutTimerFunc(16, physicsLoop, 0);  // 60 frames per second
