@@ -1,4 +1,9 @@
 Basic minecraft copy in c++. (Not done)
 Purely for fun/learning.
 
-Havent quite figured textures out or file paths so good luck for now if you chose to use this program
+If you chose to run this you will find the following:
+- Freecam only.
+- Blocks place at your cameras location.
+- Use num keys to select block or right click to move through the selection.
+- left click is place block.
+- Only a few blocks are added for now.
