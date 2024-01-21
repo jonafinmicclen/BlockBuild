@@ -12,9 +12,11 @@ void renderLoop() {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    //Draw shit and camera shit
+    // Enable blending for drawing on top
+
+    // Draw shit and camera shit
     userCamera.autoLookAt();
-    manager->drawWorld();
+    manager->drawWorldOptimised();
 
     glutSwapBuffers();
 }
@@ -87,12 +89,15 @@ int main(int argc, char** argv) {
     glutInitWindowSize(1920, 1080);
     glutCreateWindow("BlockBuild");
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glClearColor(0.0, 0.0, 0.0, 1.0);
     
     manager = new WorldManager(); // Creates world manager
     playerManager = new PlayerManager();
     playerManager->setNumOfItems(manager->getNumOfBlocks());
     manager->generateFlatland();
+    manager->generateAllChunksDisplayLists();
 
     glutDisplayFunc(renderLoop);
     glutReshapeFunc(reshape);

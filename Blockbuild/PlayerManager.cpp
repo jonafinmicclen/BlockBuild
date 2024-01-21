@@ -35,3 +35,9 @@ void PlayerManager::updateOnTick() {
 		actionCooldownCounter = 0;
 	}
 }
+
+void PlayerManager::drawPlayerHUD() {
+
+
+
+}

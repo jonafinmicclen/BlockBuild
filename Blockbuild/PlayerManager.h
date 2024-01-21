@@ -15,6 +15,7 @@ public:
 	void selectNextBlock();
 	void setNumOfItems(const int num);
 	void updateOnTick();
+	void drawPlayerHUD();
 };
 
 #endif // PLAYERMANAGER_H

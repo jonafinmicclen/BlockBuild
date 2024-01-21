@@ -24,7 +24,7 @@ void RenderedObject::addSurfaceAndTextureCoords(const std::pair< std::vector<int
 void RenderedObject::loadTexture(const char* texturePath) {
 
     int width, height, channels;
-    unsigned char* image = stbi_load(texturePath, &width, &height, &channels, STBI_rgb);
+    unsigned char* image = stbi_load(texturePath, &width, &height, &channels, STBI_rgb_alpha);
 
     if (image) {
         glGenTextures(1, &textureID);
@@ -38,8 +38,8 @@ void RenderedObject::loadTexture(const char* texturePath) {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+        // Upload image data to OpenGL
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
 
         stbi_image_free(image);
     }
