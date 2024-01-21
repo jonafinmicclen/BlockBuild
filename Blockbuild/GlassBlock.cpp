@@ -1,5 +1,6 @@
 #include "GlassBlock.h"
 
-GlassBlock::GlassBlock() : CubeBlock::CubeBlock() {
-	setTexturePos({ 1.0f, 3.0f });
+GlassBlock::GlassBlock() : CubeBlock()	{
+	setAllCornersFromTopLeft({ 1,3 });
+	setAllFacesUV(allCornersCoords);
 }

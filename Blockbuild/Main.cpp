@@ -60,7 +60,7 @@ void physicsLoop(int value) {
         default:
             // Check if it's an integer character
             if (isdigit(input)) {
-                int intValue = stoi(std::string(1, input));
+                int intValue = std::stoi(std::string(1, input));
                 std::cout << "[Main]:BlockInHand set to " << intValue << ".\n";
                 playerManager->blockInHand = intValue;
             }

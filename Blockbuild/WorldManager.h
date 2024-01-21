@@ -7,6 +7,8 @@
 #include "BedrockBlock.h"
 #include "WoodplanksBlock.h"
 #include "GlassBlock.h"
+#include "ChestBlock.h"
+#include "GrassBlock.h"
 
 class WorldManager {
 public:

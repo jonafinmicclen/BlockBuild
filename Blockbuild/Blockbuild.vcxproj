@@ -130,8 +130,10 @@
   <ItemGroup>
     <ClCompile Include="BedrockBlock.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="ChestBlock.cpp" />
     <ClCompile Include="CubeBlock.cpp" />
     <ClCompile Include="GlassBlock.cpp" />
+    <ClCompile Include="GrassBlock.cpp" />
     <ClCompile Include="GravelBlock.cpp" />
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="InputHandler.h" />
@@ -148,8 +150,10 @@
   <ItemGroup>
     <ClInclude Include="BedrockBlock.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="ChestBlock.h" />
     <ClInclude Include="CubeBlock.h" />
     <ClInclude Include="GlassBlock.h" />
+    <ClInclude Include="GrassBlock.h" />
     <ClInclude Include="PlayerManager.h" />
     <ClInclude Include="StoneBlock.h" />
     <ClInclude Include="GravelBlock.h" />
@@ -162,6 +166,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="textures.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </Image>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

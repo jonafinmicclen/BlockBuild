@@ -4,6 +4,8 @@
 #include <GL/glut.h>
 #include <cmath>
 #include <iostream>
+#include <cctype>  // Include this for isdigit
+#include <string>
 #include "RenderedObject.h"
 #include "CubeBlock.h"
 #include "Camera.h"

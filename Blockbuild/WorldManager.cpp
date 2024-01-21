@@ -58,6 +58,8 @@ void WorldManager::loadBlocks() {
     blocks.push_back(new BedrockBlock());
     blocks.push_back(new WoodplanksBlock());
     blocks.push_back(new GlassBlock());
+    blocks.push_back(new ChestBlock());
+    blocks.push_back(new GrassBlock());
 
 }
 

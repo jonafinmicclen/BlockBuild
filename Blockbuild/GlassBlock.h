@@ -8,4 +8,4 @@ public:
     GlassBlock();
 };
 
-#endif // GLASSBLOCK_H
+#endif // GRASSBLOCK_H
