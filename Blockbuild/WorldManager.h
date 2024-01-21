@@ -9,6 +9,7 @@
 #include "GlassBlock.h"
 #include "ChestBlock.h"
 #include "GrassBlock.h"
+#include "TntBlock.h"
 
 class WorldManager {
 public:

@@ -7,7 +7,7 @@
 class CubeBlock : public RenderedObject, public PhysicsObject{
 public:
 
-	std::vector<char> defaultFaceOrder = { 'F','B','L','R','T','D' };	// Index of letter is index of face when use auto set faces
+	std::vector<char> defaultFaceOrder = { 'F','B','L','R','T','D' };	// Index of letter is index of face when use auto set faces, unfortunately T and D are flipped
 
 	void setTexturePos(const std::pair<float, float> position);
 	void setVertexAndCoords();

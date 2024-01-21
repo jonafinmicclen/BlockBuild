@@ -60,6 +60,7 @@ void WorldManager::loadBlocks() {
     blocks.push_back(new GlassBlock());
     blocks.push_back(new ChestBlock());
     blocks.push_back(new GrassBlock());
+    blocks.push_back(new TntBlock());
 
 }
 
