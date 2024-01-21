@@ -63,6 +63,24 @@ void WorldManager::loadBlocks() {
 
 }
 
+void WorldManager::generateFlatland() {
+    for (int x = 0; x < worldLength; ++x) {
+        for (int z = 0; z < worldLength; ++z) {
+            for (int y = 0; y < 6; ++y) {
+                if (y == 0) {
+                    world[x][y][z] = 2;
+                }
+                if (y>0 && y<5) {
+                    world[x][y][z] = 1;
+                }
+                if (y == 5) {
+                    world[x][y][z] = 6;
+                }
+            }
+        }
+    }
+}
+
 void WorldManager::deleteBlocks() {
 
 	// Clean up: delete instances from the vector

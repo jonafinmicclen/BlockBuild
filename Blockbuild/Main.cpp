@@ -51,7 +51,7 @@ void physicsLoop(int value) {
             userCamera.moveRelativeStrafe(0.1f);
             break;
         case 'T':
-            manager->placeBlock({userCamera.position, playerManager->blockInHand});
+            manager->placeBlock({userCamera.target, playerManager->blockInHand});
             break;
         case 'Y':
             playerManager->selectNextBlock();
@@ -94,6 +94,7 @@ int main(int argc, char** argv) {
     manager = new WorldManager(); // Creates world manager
     playerManager = new PlayerManager();
     playerManager->setNumOfItems(manager->getNumOfBlocks());
+    manager->generateFlatland();
 
     glutDisplayFunc(renderLoop);
     glutReshapeFunc(reshape);

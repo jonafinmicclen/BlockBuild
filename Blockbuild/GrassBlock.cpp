@@ -9,10 +9,10 @@ GrassBlock::GrassBlock() {
 	setAFaceUV({ 'R', allCornersCoords });
 	rotateFaceCW(2);
 	setAFaceUV({ 'D',{
-		allCornersCoords[0],
-		allCornersCoords[1],
-		{allCornersCoords[1].x, allCornersCoords[1].y - 1 / 16},
-		{allCornersCoords[0].x, allCornersCoords[0].y - 1 / 16}
+		allCornersCoords[3],
+		allCornersCoords[2],
+		{allCornersCoords[2].x, 1.0f/(16*16)},	// Idk where grass gets its texture from
+		{allCornersCoords[3].x, 1.0f/(16*16)}
 		} });
 	setAllCornersFromTopLeft({ 2,0 });
 	setAFaceUV({ 'T',allCornersCoords });

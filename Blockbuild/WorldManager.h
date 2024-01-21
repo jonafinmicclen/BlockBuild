@@ -25,6 +25,7 @@ public:
 	void deleteBlocks();
 	void drawWorld();
 	void placeBlock(const std::pair<glm::vec3, int> positionAndBlockNo);
+	void generateFlatland();	// Generates a flat land enviroment in current world
 };
 
 #endif // WORLDMANAGER_H
