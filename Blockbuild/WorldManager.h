@@ -23,7 +23,7 @@ public:
 	WorldManager();
 
 	static const int worldHeight = 512;		//MUST be mulitple of 16
-	static const int worldLength = 512;		//Must be multiple of 16 for the optimisation
+	static const int worldLength = 320;		//Must be multiple of 16 for the optimisation
 	static const int renderDistance = 8;	//Meassured in chunks
 
 	int treeHeight = 10;

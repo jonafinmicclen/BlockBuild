@@ -87,7 +87,7 @@ void WorldManager::loadBlocks() {
 
 	// Blocks in game
 	blocks.push_back(new GravelBlock());	//Index 0 in cubes
-    blocks.push_back(new StoneBlock());
+    blocks.push_back(new StoneBlock());//
     blocks.push_back(new BedrockBlock());
     blocks.push_back(new WoodplanksBlock());
     blocks.push_back(new GlassBlock());
