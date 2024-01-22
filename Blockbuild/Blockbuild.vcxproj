@@ -137,6 +137,7 @@
     <ClCompile Include="GravelBlock.cpp" />
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="InputHandler.h" />
+    <ClCompile Include="PerlinNoise.cpp" />
     <ClCompile Include="PhysicsObject.cpp" />
     <ClCompile Include="PlayerManager.cpp" />
     <ClCompile Include="RenderedObject.cpp">
@@ -155,6 +156,7 @@
     <ClInclude Include="CubeBlock.h" />
     <ClInclude Include="GlassBlock.h" />
     <ClInclude Include="GrassBlock.h" />
+    <ClInclude Include="PerlinNoise.h" />
     <ClInclude Include="PlayerManager.h" />
     <ClInclude Include="StoneBlock.h" />
     <ClInclude Include="GravelBlock.h" />

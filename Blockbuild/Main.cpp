@@ -5,6 +5,8 @@ InputHandler inputs;
 WorldManager* manager; // Declare as a pointer
 PlayerManager* playerManager;
 
+float MOVESPEED = 1;
+
 void renderLoop() {
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -20,8 +22,6 @@ void renderLoop() {
 
     glutSwapBuffers();
 }
-
-
 
 void reshape(int width, int height) {
     glViewport(0, 0, width, height);
@@ -41,16 +41,16 @@ void physicsLoop(int value) {
     for (const auto& input : pressed) {
         switch (input) {
         case 'W':
-            userCamera.moveRelativeAmbulate(0.1f);
+            userCamera.moveRelativeAmbulate(MOVESPEED);
             break;
         case 'S':
-            userCamera.moveRelativeAmbulate(-0.1f);
+            userCamera.moveRelativeAmbulate(-MOVESPEED);
             break;
         case 'A':
-            userCamera.moveRelativeStrafe(-0.1f);
+            userCamera.moveRelativeStrafe(-MOVESPEED);
             break;
         case 'D':
-            userCamera.moveRelativeStrafe(0.1f);
+            userCamera.moveRelativeStrafe(MOVESPEED);
             break;
         case 'T':
             manager->placeBlock({userCamera.target, playerManager->blockInHand});
@@ -96,7 +96,7 @@ int main(int argc, char** argv) {
     manager = new WorldManager(); // Creates world manager
     playerManager = new PlayerManager();
     playerManager->setNumOfItems(manager->getNumOfBlocks());
-    manager->generateFlatland();
+    manager->generateWorld();
     manager->generateAllChunksDisplayLists();
 
     glutDisplayFunc(renderLoop);

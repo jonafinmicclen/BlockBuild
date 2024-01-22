@@ -199,3 +199,29 @@ void WorldManager::generateChunkDisplayList(const glm::ivec2 chunkPosition) {
 void WorldManager::drawWorldUsingDisplayList() {
     glCallList(worldDisplayList);
 }
+
+void WorldManager::generateWorld() {
+
+    PerlinNoise perlin;
+    auto heightmap = perlin.generateHeightmap(worldLength, worldLength, 0.1, 0.1);
+
+    for (int x = 0; x < worldLength; ++x) {
+        for (int z = 0; z < worldLength; ++z) {
+            auto heightOfColumn = std::floor( 40 * abs(heightmap[x][z]));
+            for (int y = 0; y <= heightOfColumn; ++y) {
+
+                if (y/heightOfColumn > 0.7) {
+                    world[x][y][z] = 3;
+                }
+                else {
+                    world[x][y][z] = 1;
+                }
+                if (y == heightOfColumn) {
+                    world[x][y][z] = 7;
+                }
+
+            }
+        }
+    }
+
+}
