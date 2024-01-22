@@ -57,7 +57,7 @@ void physicsLoop(int value) {
             manager->placeBlock({userCamera.target, playerManager->blockInHand});
             break;
         case 'Y':
-            manager->explosion(userCamera.position);
+            playerManager->selectNextBlock();
             break;
         default:
             // Check if it's an integer character
