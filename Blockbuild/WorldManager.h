@@ -70,6 +70,7 @@ public:
 	std::vector<int> getNeigbouringBlocks(const glm::ivec3 position);
 	bool neighbourHasOpacity(const glm::ivec3 position);
 	void generateBubble(const glm::ivec3 position);
+
 };
 
 #endif // WORLDMANAGER_H
