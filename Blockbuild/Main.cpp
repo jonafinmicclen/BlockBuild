@@ -27,7 +27,7 @@ void reshape(int width, int height) {
     glViewport(0, 0, width, height);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(100, (GLfloat)width / (GLfloat)height, 0.1, 100.0);
+    gluPerspective(90, (GLfloat)width / (GLfloat)height, 0.1, 200);
 }
 
 void physicsLoop(int value) {

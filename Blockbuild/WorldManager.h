@@ -22,7 +22,7 @@ public:
 
 	static const int worldHeight = 64;		//MUST be mulitple of 16
 	static const int worldLength = 640;		//Must be multiple of 16 for the optimisation
-	static const int renderDistance = 3;	//Meassured in chunks
+	static const int renderDistance = 10;	//Meassured in chunks
 
 	static const int treeHeight = 10;
 	static const int leafRadius = 6;
@@ -59,6 +59,7 @@ public:
 	void generateAllChunksDisplayLists();
 	void drawWorldUsingChunksDisplayLists(const glm::vec2 playerPosition);
 	void generateTree(const glm::ivec3 position);
+	void getNeigbouringBlocks(const glm::ivec3 position);
 };
 
 #endif // WORLDMANAGER_H

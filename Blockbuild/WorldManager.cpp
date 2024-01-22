@@ -197,6 +197,18 @@ void WorldManager::generateAllChunksDisplayLists() {
     }
 }
 
+void WorldManager::getNeigbouringBlocks(const glm::ivec3 position) {
+
+    glm::ivec3 neighbourCoords[6];
+    glm::ivec3 offsetXs = { 1,0,0 };
+    glm::ivec3 offsetYs = { 0,1,0 };
+    glm::ivec3 offsetZs = { 0,0,1 };
+
+    neighbourCoords[0] = position + offsetXs;
+
+
+}
+
 void WorldManager::generateChunkDisplayList(const glm::ivec2 chunkPosition) {
 
     glDeleteLists(chunksDisplayList[chunkPosition.x][chunkPosition.y], 1);
@@ -207,10 +219,13 @@ void WorldManager::generateChunkDisplayList(const glm::ivec2 chunkPosition) {
     // Accessing each block in the chunk
     for (int x = chunkPosition.x * 16; x < chunkPosition.x * 16 + 16; ++x) {
         for (int z = chunkPosition.y * 16; z < chunkPosition.y * 16 + 16; ++z) {
-            for (int y = worldHeight-1; y >= 0; --y) {
+
+            for (int y = worldHeight-1; y >= 0; --y) {      //Top down render
 
                 // Draws block at its index
                 auto& blockInPlace = world[x][y][z];
+
+
                 if (blockInPlace != -1) {
                     blocks[world[x][y][z]]->draw({ x, y, z });
                     break;
