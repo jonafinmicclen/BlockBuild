@@ -310,7 +310,7 @@ void WorldManager::generateTree(const glm::ivec3 position) {
             double z = leafRadius * cos(polarAngle);
             glm::ivec3 offset = { x,y + treeHeight - leafRadius + 1,z };
             glm::ivec3 leafPos = position + offset;
-            replaceBlock({ leafPos, 7 });
+            replaceBlock({ leafPos, 10 });
         }
     }
     // Draw chunk

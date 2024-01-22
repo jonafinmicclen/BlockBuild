@@ -23,7 +23,7 @@ public:
 	WorldManager();
 
 	static const int worldHeight = 512;		//MUST be mulitple of 16
-	static const int worldLength = 320;		//Must be multiple of 16 for the optimisation
+	static const int worldLength = 64;		//Must be multiple of 16 for the optimisation
 	static const int renderDistance = 8;	//Meassured in chunks
 
 	int treeHeight = 10;
@@ -56,7 +56,7 @@ public:
 	void generateWorld();
 
 	void destroyBlock(const glm::ivec3 position);
-	void replaceBlock(const std::pair<glm::ivec3, int> positionAndBlockNo);
+	void replaceBlock(const std::pair<glm::ivec3, int> positionAndBlockNo);	//Takes position and block-noS
 
 	// Render functions
 	void drawWorld();
