@@ -2,6 +2,12 @@
 
 WorldManager::WorldManager() {
 
+    // Seed the random number generator (use a different seed for actual randomness)
+    std::random_device rd;
+    std::mt19937 gen(rd());
+
+
+
     //Set default values in world array
     for (int x = 0; x < worldLength; ++x) {
         for (int y = 0; y < worldHeight; ++y) {
@@ -19,6 +25,22 @@ WorldManager::WorldManager() {
 
 int WorldManager::getNumOfBlocks() {
     return blocks.size();
+}
+
+void WorldManager::replaceBlock(const std::pair<glm::ivec3, int> positionAndBlockNo) {
+
+    // Round each component of the vector
+    auto realPosition = positionAndBlockNo.first;
+    auto blockNo = positionAndBlockNo.second;
+
+    // Check if the rounded position is within the bounds of world
+    if (realPosition.x >= 0 && realPosition.x < worldLength &&
+        realPosition.y >= 0 && realPosition.y < worldHeight &&
+        realPosition.z >= 0 && realPosition.z < worldLength) {
+
+        world[realPosition.x][realPosition.y][realPosition.z] = blockNo;
+    }
+
 }
 
 void WorldManager::placeBlock(const std::pair<glm::vec3, int> positionAndBlockNo) {
@@ -65,6 +87,9 @@ void WorldManager::loadBlocks() {
     blocks.push_back(new ChestBlock());
     blocks.push_back(new GrassBlock());
     blocks.push_back(new TntBlock());
+    blocks.push_back(new DirtBlock());
+    blocks.push_back(new WoodBlock());
+    blocks.push_back(new LeafBlock());
 
 }
 
@@ -200,28 +225,55 @@ void WorldManager::drawWorldUsingDisplayList() {
     glCallList(worldDisplayList);
 }
 
+void WorldManager::generateTree(const glm::ivec3 position) {
+
+    for (int r = 0; r <= leafRadius; r++) {
+        for (float polarAngle = 0; polarAngle < 3; polarAngle += 0.1) {
+            for (float azimuthalAngle = 0; azimuthalAngle < 3; azimuthalAngle += 0.1) {
+                double x = leafRadius * sin(polarAngle) * cos(azimuthalAngle);
+                double y = leafRadius * sin(polarAngle) * sin(azimuthalAngle);
+                double z = leafRadius * cos(polarAngle);
+                glm::ivec3 offset = { x,y + treeHeight - leafRadius + 1,z };
+                glm::ivec3 leafPos = position + offset;
+                replaceBlock({ leafPos, 10 });
+            }
+        }
+    }
+    for (int i = 0; i < treeHeight; ++i) {
+        replaceBlock({ {position.x, position.y + i, position.z}, 9});
+    }
+}
+
 void WorldManager::generateWorld() {
 
     PerlinNoise perlin;
-    auto heightmap = perlin.generateHeightmap(worldLength, worldLength, 0.1, 0.1);
+    auto heightmap = perlin.generateHeightmap(worldLength, worldLength, 0.05, 0.05);
 
     for (int x = 0; x < worldLength; ++x) {
         for (int z = 0; z < worldLength; ++z) {
             auto heightOfColumn = std::floor( 40 * abs(heightmap[x][z]));
             for (int y = 0; y <= heightOfColumn; ++y) {
 
-                if (y/heightOfColumn > 0.7) {
-                    world[x][y][z] = 3;
+                if (y/heightOfColumn > 0.8) {
+                    world[x][y][z] = 8;
                 }
                 else {
                     world[x][y][z] = 1;
                 }
-                if (y == heightOfColumn) {
-                    world[x][y][z] = 7;
-                }
+                if (y == heightOfColumn) {      //Randomly generate trees if y>10
+                    std::uniform_int_distribution<int> distribution(0, 1000);
+                    bool shouldGenTree = distribution(gen) == 1;
+                    if (y > 10 && shouldGenTree) {
 
+                        generateTree({ x,y,z });
+                    }
+
+                    world[x][y][z] = 6;
+                }
+                if (y == 0) {
+                    world[x][y][z] = 2;
+                }
             }
         }
     }
-
 }

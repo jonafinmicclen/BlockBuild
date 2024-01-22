@@ -11,6 +11,10 @@
 #include "GrassBlock.h"
 #include "TntBlock.h"
 #include "PerlinNoise.h"
+#include "DirtBlock.h"
+#include "WoodBlock.h"
+#include "LeafBlock.h"
+#include <random>
 
 class WorldManager {
 public:
@@ -19,6 +23,13 @@ public:
 	static const int worldHeight = 64;		//MUST be mulitple of 16
 	static const int worldLength = 640;		//Must be multiple of 16 for the optimisation
 	static const int renderDistance = 3;	//Meassured in chunks
+
+	static const int treeHeight = 10;
+	static const int leafRadius = 6;
+
+	std::random_device rd;
+	std::mt19937 gen;
+	std::uniform_int_distribution<int> distribution;
 
 	bool updatedLastFrame;
 	std::vector<glm::vec2> chunksToUpdate;
@@ -37,6 +48,8 @@ public:
 	void generateFlatland();				// Generates a flat land enviroment in current world
 	void generateWorld();
 
+	void replaceBlock(const std::pair<glm::ivec3, int> positionAndBlockNo);
+
 	// Render functions
 	void drawWorld();
 	void createDisplayList();
@@ -45,6 +58,7 @@ public:
 	void generateChunkDisplayList(const glm::ivec2 chunkPosition);
 	void generateAllChunksDisplayLists();
 	void drawWorldUsingChunksDisplayLists(const glm::vec2 playerPosition);
+	void generateTree(const glm::ivec3 position);
 };
 
 #endif // WORLDMANAGER_H

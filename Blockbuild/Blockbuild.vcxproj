@@ -132,11 +132,13 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ChestBlock.cpp" />
     <ClCompile Include="CubeBlock.cpp" />
+    <ClCompile Include="DirtBlock.cpp" />
     <ClCompile Include="GlassBlock.cpp" />
     <ClCompile Include="GrassBlock.cpp" />
     <ClCompile Include="GravelBlock.cpp" />
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="InputHandler.h" />
+    <ClCompile Include="LeafBlock.cpp" />
     <ClCompile Include="PerlinNoise.cpp" />
     <ClCompile Include="PhysicsObject.cpp" />
     <ClCompile Include="PlayerManager.cpp" />
@@ -146,6 +148,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="StoneBlock.cpp" />
     <ClCompile Include="TntBlock.cpp" />
+    <ClCompile Include="WoodBlock.cpp" />
     <ClCompile Include="WoodplanksBlock.cpp" />
     <ClCompile Include="WorldManager.cpp" />
   </ItemGroup>
@@ -154,8 +157,10 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ChestBlock.h" />
     <ClInclude Include="CubeBlock.h" />
+    <ClInclude Include="DirtBlock.h" />
     <ClInclude Include="GlassBlock.h" />
     <ClInclude Include="GrassBlock.h" />
+    <ClInclude Include="LeafBlock.h" />
     <ClInclude Include="PerlinNoise.h" />
     <ClInclude Include="PlayerManager.h" />
     <ClInclude Include="StoneBlock.h" />
@@ -165,6 +170,7 @@
     <ClInclude Include="RenderedObject.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="TntBlock.h" />
+    <ClInclude Include="WoodBlock.h" />
     <ClInclude Include="WoodplanksBlock.h" />
     <ClInclude Include="WorldManager.h" />
   </ItemGroup>
