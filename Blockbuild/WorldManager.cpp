@@ -6,13 +6,20 @@ WorldManager::WorldManager() {
     std::random_device rd;
     std::mt19937 gen(rd());
 
-
-
     //Set default values in world array
     for (int x = 0; x < worldLength; ++x) {
         for (int y = 0; y < worldHeight; ++y) {
             for (int z = 0; z < worldLength; ++z) {
                 world[x][y][z] = -1;
+            }
+        }
+    }
+
+    //Set default values in force field array
+    for (int x = 0; x < worldLength; ++x) {
+        for (int y = 0; y < worldHeight; ++y) {
+            for (int z = 0; z < worldLength; ++z) {
+                forceField[x][y][z] = 0.0f;
             }
         }
     }
@@ -90,6 +97,11 @@ void WorldManager::loadBlocks() {
     blocks.push_back(new DirtBlock());
     blocks.push_back(new WoodBlock());
     blocks.push_back(new LeafBlock());
+    blocks.push_back(new CobblestoneBlock());
+
+    for (auto& block : blocks) {
+        block->generateDisplayList();
+    }
 
 }
 
@@ -141,12 +153,16 @@ void WorldManager::drawWorld() {
 void WorldManager::drawWorldOptimised(const glm::vec2 playerPosition) {
     if (chunksToUpdate.size()>0) {
         
+        // Update chunks
         for (const auto& chunkToUpdate : chunksToUpdate) {
-            std::cout << "[WorldManager]:Creating chunk display list at chunk x:"<< chunkToUpdate.x<<", z:"<<chunkToUpdate.y<<".\n";
-            generateChunkDisplayList({chunkToUpdate});
+            for (const auto& extraChunkToUpdate : getNeighbouringPosition(chunkToUpdate)) {
+                std::cout << "[WorldManager]:Creating chunk display list at chunk x:" << extraChunkToUpdate.x << ", z:" << extraChunkToUpdate.y << ".\n";
+                generateChunkDisplayList({ extraChunkToUpdate });
+            }
         }
         chunksToUpdate.clear();
     }
+    // Draw chunks
     drawWorldUsingChunksDisplayLists(playerPosition);
 }
 
@@ -197,6 +213,22 @@ void WorldManager::generateAllChunksDisplayLists() {
     }
 }
 
+std::vector<glm::ivec2> WorldManager::getNeighbouringPosition(const glm::ivec2 position) {
+
+    std::vector<glm::ivec2> neighbourCoords;
+    glm::ivec2 offsetXs = { 1,0 };
+    glm::ivec2 offsetZs = { 0,1 };
+
+    neighbourCoords.push_back(position + offsetXs);
+    neighbourCoords.push_back(position - offsetXs);
+    neighbourCoords.push_back(position + offsetZs);
+    neighbourCoords.push_back(position - offsetZs);
+    neighbourCoords.push_back(position);
+
+    return neighbourCoords;
+
+}
+
 std::vector<int> WorldManager::getNeigbouringBlocks(const glm::ivec3 position) {
 
     glm::ivec3 neighbourCoords[6];
@@ -230,7 +262,7 @@ std::vector<int> WorldManager::getNeigbouringBlocks(const glm::ivec3 position) {
 bool WorldManager::neighbourHasOpacity(const glm::ivec3 position) {
 
     for (auto& block : getNeigbouringBlocks(position)) {
-        if (block == -1) {
+        if (block == -1 || block == 4) {
             return true;
         }
     }
@@ -270,21 +302,54 @@ void WorldManager::drawWorldUsingDisplayList() {
 
 void WorldManager::generateTree(const glm::ivec3 position) {
 
-    for (int r = 0; r <= leafRadius; r++) {
-        for (float polarAngle = 0; polarAngle < 3; polarAngle += 0.1) {
-            for (float azimuthalAngle = 0; azimuthalAngle < 3; azimuthalAngle += 0.1) {
-                double x = leafRadius * sin(polarAngle) * cos(azimuthalAngle);
-                double y = leafRadius * sin(polarAngle) * sin(azimuthalAngle);
-                double z = leafRadius * cos(polarAngle);
-                glm::ivec3 offset = { x,y + treeHeight - leafRadius + 1,z };
-                glm::ivec3 leafPos = position + offset;
-                replaceBlock({ leafPos, 10 });
-            }
+    // Draw leaves
+    for (float polarAngle = 0; polarAngle < 3; polarAngle += 0.1) {
+        for (float azimuthalAngle = 0; azimuthalAngle < 3; azimuthalAngle += 0.1) {
+            double x = leafRadius * sin(polarAngle) * cos(azimuthalAngle);
+            double y = leafRadius * sin(polarAngle) * sin(azimuthalAngle);
+            double z = leafRadius * cos(polarAngle);
+            glm::ivec3 offset = { x,y + treeHeight - leafRadius + 1,z };
+            glm::ivec3 leafPos = position + offset;
+            replaceBlock({ leafPos, 7 });
         }
     }
+    // Draw chunk
     for (int i = 0; i < treeHeight; ++i) {
         replaceBlock({ {position.x, position.y + i, position.z}, 9});
     }
+}
+
+void WorldManager::generateBubble(const glm::ivec3 position) {      //Should put light in middle
+
+    // Draw leaves
+    for (float polarAngle = 0; polarAngle < 6.2; polarAngle += 0.1) {
+        for (float azimuthalAngle = 0; azimuthalAngle < 6.2; azimuthalAngle += 0.1) {
+            double x = leafRadius * sin(polarAngle) * cos(azimuthalAngle);
+            double y = leafRadius * sin(polarAngle) * sin(azimuthalAngle);
+            double z = leafRadius * cos(polarAngle);
+            glm::ivec3 offset = { x,y + treeHeight - leafRadius + 1,z };
+            glm::ivec3 leafPos = position + offset;
+            replaceBlock({ leafPos, 4 });
+        }
+    }
+}
+
+void WorldManager::explosion(const glm::ivec3 position) {
+
+    for (float r = -2; r <= 4; r+=0.1) {
+        for (float polarAngle = 0; polarAngle < 6.3; polarAngle += 0.1) {
+            for (float azimuthalAngle = 0; azimuthalAngle < 6.3; azimuthalAngle += 0.1) {
+                int x = r * sin(polarAngle) * cos(azimuthalAngle);
+                int y = r * sin(polarAngle) * sin(azimuthalAngle);
+                int z = r * cos(polarAngle);
+                world[x + position.x][y + position.y][z + position.z] = -1;      // Not a tree just copied from tree
+            }
+        }
+    }
+    glm::ivec2 chunkPos = { position.x / 16, position.z / 16 };
+
+    chunksToUpdate.push_back({ chunkPos });//Also should update other chunks involved
+
 }
 
 void WorldManager::generateWorld() {
@@ -294,26 +359,39 @@ void WorldManager::generateWorld() {
 
     for (int x = 0; x < worldLength; ++x) {
         for (int z = 0; z < worldLength; ++z) {
-            auto heightOfColumn = std::floor( 40 * abs(heightmap[x][z]) + 15);
+            auto heightOfColumn = std::floor( 70 * heightmap[x][z] + 200);
             for (int y = 0; y <= heightOfColumn; ++y) {
 
                 if (y/heightOfColumn > 0.8) {
+                    // Generate dirt between cobble and grass
                     world[x][y][z] = 8;
                 }
                 else {
-                    world[x][y][z] = 1;
+                    // Generate cobblestone underground
+                    world[x][y][z] = 11;
                 }
                 if (y == heightOfColumn) {      //Randomly generate trees if y>10
-                    std::uniform_int_distribution<int> distribution(0, 1000);
-                    bool shouldGenTree = distribution(gen) == 1;
-                    if (y > 10 && shouldGenTree) {
 
+                    // Tree
+                    std::uniform_int_distribution<int> distribution(0, 1000);// Random chance
+                    if (y > 10 && distribution(gen) == 1) { 
+                        treeHeight = heightOfColumn / 14;
+                        leafRadius = heightOfColumn / 35;
                         generateTree({ x,y,z });
                     }
 
+                    // Bubble
+                    std::uniform_int_distribution<int> distribution2(0, 3000);// Random chance
+                    if (distribution2(gen) == 1) {
+                        // Create bubble
+                        generateBubble({ x,y + 40,z });
+                    }
+
+                    // Generate grass block at top
                     world[x][y][z] = 6;
                 }
                 if (y == 0) {
+                    // Generate bedrock at bottom
                     world[x][y][z] = 2;
                 }
             }
@@ -324,16 +402,16 @@ void WorldManager::generateWorld() {
 void WorldManager::destroyBlock(const glm::ivec3 position) {
 
     // Check if the rounded position is within the bounds of world
-    if (position.x >= 0 && position.x < worldLength &&
-        position.y >= 0 && position.y < worldHeight &&
-        position.z >= 0 && position.z < worldLength) {
+    //if (position.x >= 0 && position.x < worldLength &&
+    //   position.y >= 0 && position.y < worldHeight &&
+    //   position.z >= 0 && position.z < worldLength) {
 
-        world[position.x][position.y][position.z] = -1;
-        chunksToUpdate.push_back({ position.x / 16,position.z / 16 });
+    world[position.x][position.y][position.z] = -1;
+    chunksToUpdate.push_back({ position.x / 16,position.z / 16 });
 
-    }
-    else {
+    ///}
+    //else {
         // Handle out-of-bounds case, if needed
-        std::cerr << "[WorldManager]:Error: Attempted to destroy block out of bounds." << std::endl;
-    }
+    //    std::cerr << "[WorldManager]:Error: Attempted to destroy block out of bounds." << std::endl;
+    //}
 }
