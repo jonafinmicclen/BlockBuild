@@ -48,7 +48,7 @@ void RenderedObject::loadTexture(const char* texturePath) {
     }
 }
 
-void RenderedObject::draw(const glm::vec3 position) {
+void RenderedObject::oldDraw(const glm::vec3 position) {
     glPushMatrix();
     glTranslatef(position.x, position.y, position.z);
     glRotatef(rotation_angle, rotation_axis.x, rotation_axis.y, rotation_axis.z);
@@ -85,4 +85,35 @@ void RenderedObject::draw(const glm::vec3 position) {
     }
 
     glPopMatrix();
+}
+
+void RenderedObject::draw(const glm::vec3 position) {
+
+
+    oldDraw(position);
+    //drawWithDisplayList(position);
+
+}
+
+void RenderedObject::drawWithDisplayList(const glm::vec3 position) {
+    glPushMatrix();
+    glTranslatef(position.x, position.y, position.z);
+    glRotatef(rotation_angle, rotation_axis.x, rotation_axis.y, rotation_axis.z);
+    // Use display list
+    glCallList(displayList);
+    glPopMatrix();
+}
+
+void RenderedObject::generateDisplayList() {
+
+    glDeleteLists(displayList, 1);
+
+    displayList = glGenLists(1);
+    glNewList(displayList, GL_COMPILE);
+
+    // Draw
+    draw({0,0,0});
+
+    glEndList();
+
 }

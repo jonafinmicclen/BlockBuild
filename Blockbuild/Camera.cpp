@@ -7,6 +7,16 @@ void Camera::autoLookAt(){
         up.x,           up.y,           up.z);
 }
 
+void Camera::draw() {
+
+    glPushMatrix();
+    GLUquadric* quad;
+    quad = gluNewQuadric();
+    glTranslatef(target.x, target.y, target.z);
+    gluSphere(quad, 0.05, 10, 10);
+    glPopMatrix();
+}
+
 void Camera::rotateLookByDMXY(glm::vec2 mouseDelta) {
 
     mouseDelta.y /= -600;
@@ -40,6 +50,10 @@ void Camera::moveRelativeStrafe(float magnitude) {
     glm::vec3 strafeVector = glm::normalize(rightVector);
     position += strafeVector * magnitude;
     target += strafeVector * magnitude;
+}
+
+Camera::Camera() {
+ 
 }
 
 

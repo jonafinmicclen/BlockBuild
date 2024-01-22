@@ -5,7 +5,7 @@ InputHandler inputs;
 WorldManager* manager; // Declare as a pointer
 PlayerManager* playerManager;
 
-float MOVESPEED = 1;
+float MOVESPEED = 0.1;
 
 void renderLoop() {
 
@@ -19,6 +19,7 @@ void renderLoop() {
     // Draw shit and camera shit
     userCamera.autoLookAt();
     manager->drawWorldOptimised({userCamera.position.x, userCamera.position.z});
+    userCamera.draw();
 
     glutSwapBuffers();
 }
@@ -27,7 +28,7 @@ void reshape(int width, int height) {
     glViewport(0, 0, width, height);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(45.0, (GLfloat)width / (GLfloat)height, 0.1, 100.0);
+    gluPerspective(90, (GLfloat)width / (GLfloat)height, 0.1, 1000);
 }
 
 void physicsLoop(int value) {
@@ -56,7 +57,7 @@ void physicsLoop(int value) {
             manager->placeBlock({userCamera.target, playerManager->blockInHand});
             break;
         case 'Y':
-            playerManager->selectNextBlock();
+            manager->explosion(userCamera.position);
             break;
         default:
             // Check if it's an integer character

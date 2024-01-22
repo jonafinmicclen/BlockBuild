@@ -9,13 +9,16 @@
 
 class Camera : public PhysicsObject{
 public:
+	Camera();
 
-	glm::vec3 position =	{ 0,10,0 };
-	glm::vec3 target =		{ 2,10,2 };
+	glm::vec3 position =	{ 0,150,0 };
+	glm::vec3 target =		{ 2,150,2 };
 	glm::vec3 up =			{ 0,1,0 };
 
 	void autoLookAt();
 	void update();
+
+	void draw();
 
 	void rotateLook(float, glm::vec3);
 	void moveRelativeAmbulate(float);
