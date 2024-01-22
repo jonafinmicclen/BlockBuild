@@ -48,6 +48,7 @@ public:
 	void generateFlatland();				// Generates a flat land enviroment in current world
 	void generateWorld();
 
+	void destroyBlock(const glm::ivec3 position);
 	void replaceBlock(const std::pair<glm::ivec3, int> positionAndBlockNo);
 
 	// Render functions
@@ -59,7 +60,8 @@ public:
 	void generateAllChunksDisplayLists();
 	void drawWorldUsingChunksDisplayLists(const glm::vec2 playerPosition);
 	void generateTree(const glm::ivec3 position);
-	void getNeigbouringBlocks(const glm::ivec3 position);
+	std::vector<int> getNeigbouringBlocks(const glm::ivec3 position);
+	bool neighbourHasOpacity(const glm::ivec3 position);
 };
 
 #endif // WORLDMANAGER_H

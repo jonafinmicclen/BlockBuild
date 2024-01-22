@@ -197,7 +197,7 @@ void WorldManager::generateAllChunksDisplayLists() {
     }
 }
 
-void WorldManager::getNeigbouringBlocks(const glm::ivec3 position) {
+std::vector<int> WorldManager::getNeigbouringBlocks(const glm::ivec3 position) {
 
     glm::ivec3 neighbourCoords[6];
     glm::ivec3 offsetXs = { 1,0,0 };
@@ -205,8 +205,36 @@ void WorldManager::getNeigbouringBlocks(const glm::ivec3 position) {
     glm::ivec3 offsetZs = { 0,0,1 };
 
     neighbourCoords[0] = position + offsetXs;
+    neighbourCoords[1] = position - offsetXs;
+    neighbourCoords[2] = position + offsetZs;
+    neighbourCoords[3] = position - offsetZs;
+    neighbourCoords[4] = position + offsetYs;
+    neighbourCoords[5] = position - offsetYs;
 
+    std::vector<int> neigbouringBlocks;
 
+    for (const auto& neighbour : neighbourCoords) {
+
+        if (neighbour.x >= 0 && neighbour.x < worldLength &&
+            neighbour.y >= 0 && neighbour.y < worldHeight &&
+            neighbour.z >= 0 && neighbour.z < worldLength) {
+
+            neigbouringBlocks.push_back(world[neighbour.x][neighbour.y][neighbour.z]);
+
+        }
+    }
+
+    return neigbouringBlocks;
+}
+
+bool WorldManager::neighbourHasOpacity(const glm::ivec3 position) {
+
+    for (auto& block : getNeigbouringBlocks(position)) {
+        if (block == -1) {
+            return true;
+        }
+    }
+    return false;
 }
 
 void WorldManager::generateChunkDisplayList(const glm::ivec2 chunkPosition) {
@@ -226,9 +254,8 @@ void WorldManager::generateChunkDisplayList(const glm::ivec2 chunkPosition) {
                 auto& blockInPlace = world[x][y][z];
 
 
-                if (blockInPlace != -1) {
+                if (blockInPlace != -1 && neighbourHasOpacity({x,y,z})) {   // Dont draw blocks if not seen
                     blocks[world[x][y][z]]->draw({ x, y, z });
-                    break;
                 }
             }
         }
@@ -291,5 +318,22 @@ void WorldManager::generateWorld() {
                 }
             }
         }
+    }
+}
+
+void WorldManager::destroyBlock(const glm::ivec3 position) {
+
+    // Check if the rounded position is within the bounds of world
+    if (position.x >= 0 && position.x < worldLength &&
+        position.y >= 0 && position.y < worldHeight &&
+        position.z >= 0 && position.z < worldLength) {
+
+        world[position.x][position.y][position.z] = -1;
+        chunksToUpdate.push_back({ position.x / 16,position.z / 16 });
+
+    }
+    else {
+        // Handle out-of-bounds case, if needed
+        std::cerr << "[WorldManager]:Error: Attempted to destroy block out of bounds." << std::endl;
     }
 }
