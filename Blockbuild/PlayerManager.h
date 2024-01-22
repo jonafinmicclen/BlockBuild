@@ -1,6 +1,8 @@
 #ifndef PLAYERMANAGER_H
 #define PLAYERMANAGER_H
 
+#include <iostream>
+
 class PlayerManager {
 public:
 	PlayerManager();
