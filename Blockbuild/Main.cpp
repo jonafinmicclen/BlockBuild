@@ -16,7 +16,7 @@ void renderLoop() {
 
     // Draw shit and camera shit
     userCamera.autoLookAt();
-    manager->drawWorldOptimised();
+    manager->drawWorldOptimised({userCamera.position.x, userCamera.position.z});
 
     glutSwapBuffers();
 }

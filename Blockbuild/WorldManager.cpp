@@ -113,7 +113,7 @@ void WorldManager::drawWorld() {
     }
 }
 
-void WorldManager::drawWorldOptimised() {
+void WorldManager::drawWorldOptimised(const glm::vec2 playerPosition) {
     if (chunksToUpdate.size()>0) {
         
         for (const auto& chunkToUpdate : chunksToUpdate) {
@@ -122,7 +122,7 @@ void WorldManager::drawWorldOptimised() {
         }
         chunksToUpdate.clear();
     }
-    drawWorldUsingChunksDisplayLists();
+    drawWorldUsingChunksDisplayLists(playerPosition);
 }
 
 void WorldManager::createDisplayList() {
@@ -146,16 +146,20 @@ void WorldManager::createDisplayList() {
     glEndList();
 }
 
-void WorldManager::drawWorldUsingChunksDisplayLists() {
+void WorldManager::drawWorldUsingChunksDisplayLists(const glm::vec2 playerPosition) {
 
     for (int x = 0; x < worldLength / 16; ++x) {
         for (int z = 0; z < worldLength / 16; ++z) {
 
-            glCallList(chunksDisplayList[x][z]);
+            glm::vec2 chunkPos = { x,z };
+            glm::vec2 relPlayerPos =  {playerPosition.x/16, playerPosition.y/16};
+            int distanceToChunk = glm::length(relPlayerPos - chunkPos);
+            if (distanceToChunk <= renderDistance) {
+                glCallList(chunksDisplayList[x][z]);
+            }
 
         }
     }
-
 }
 
 void WorldManager::generateAllChunksDisplayLists() {
