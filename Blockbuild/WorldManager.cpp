@@ -206,13 +206,14 @@ void WorldManager::generateChunkDisplayList(const glm::ivec2 chunkPosition) {
 
     // Accessing each block in the chunk
     for (int x = chunkPosition.x * 16; x < chunkPosition.x * 16 + 16; ++x) {
-        for (int y = 0; y < worldHeight; ++y) {
-            for (int z = chunkPosition.y * 16; z < chunkPosition.y * 16 + 16; ++z) {
+        for (int z = chunkPosition.y * 16; z < chunkPosition.y * 16 + 16; ++z) {
+            for (int y = worldHeight-1; y >= 0; --y) {
 
                 // Draws block at its index
                 auto& blockInPlace = world[x][y][z];
                 if (blockInPlace != -1) {
                     blocks[world[x][y][z]]->draw({ x, y, z });
+                    break;
                 }
             }
         }
@@ -247,11 +248,11 @@ void WorldManager::generateTree(const glm::ivec3 position) {
 void WorldManager::generateWorld() {
 
     PerlinNoise perlin;
-    auto heightmap = perlin.generateHeightmap(worldLength, worldLength, 0.05, 0.05);
+    auto heightmap = perlin.generateHeightmap(worldLength, worldLength, 0.01, 0.01);
 
     for (int x = 0; x < worldLength; ++x) {
         for (int z = 0; z < worldLength; ++z) {
-            auto heightOfColumn = std::floor( 40 * abs(heightmap[x][z]));
+            auto heightOfColumn = std::floor( 40 * abs(heightmap[x][z]) + 15);
             for (int y = 0; y <= heightOfColumn; ++y) {
 
                 if (y/heightOfColumn > 0.8) {
