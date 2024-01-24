@@ -44,6 +44,8 @@ public:
 
 	std::vector<glm::ivec2> getNeighbouringPosition(const glm::ivec2 position);
 
+	bool posOutOfBounds(const glm::ivec3 pos);		// Returns true if given coordinate is out of bounds
+
 	int getNumOfBlocks();		// Returns number of blocks in the world
 
 	void loadBlocks();		// Initialises block properties in memory
@@ -55,7 +57,7 @@ public:
 	void generateFlatland();				// Generates a flat land enviroment in current world
 	void generateWorld();
 
-	void destroyBlock(const glm::ivec3 position);
+	void destroyBlock(const glm::ivec3 position);		// Does not test for out of bounds
 	void replaceBlock(const std::pair<glm::ivec3, int> positionAndBlockNo);
 
 	// Render functions

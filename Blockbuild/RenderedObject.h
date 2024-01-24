@@ -29,7 +29,7 @@ public:
     void addSurfaceAndTextureCoords(const std::pair< std::vector<int>, std::vector<glm::vec2> >& surface);
     void setColor(const glm::vec3& newColor);
     void loadTexture(const char* texturePath);
-    void oldDraw(const glm::vec3 position);
+    void drawWithoutDisplayList(const glm::vec3 position);
     void draw(const glm::vec3 position);
 
     void drawWithDisplayList(const glm::vec3 position);

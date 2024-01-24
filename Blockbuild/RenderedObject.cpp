@@ -6,7 +6,9 @@
 RenderedObject::RenderedObject() {
     // Default color
     setColor({ 1, 1, 1 });
-    textureID = 0;  // Initialize texture ID to 0
+    textureID = 0;          // Initialize texture ID to 0
+    displayList = 0;        // Initalise display list to 0
+    generateDisplayList();
 }
 
 void RenderedObject::setColor(const glm::vec3& newColor) {
@@ -48,7 +50,7 @@ void RenderedObject::loadTexture(const char* texturePath) {
     }
 }
 
-void RenderedObject::oldDraw(const glm::vec3 position) {
+void RenderedObject::drawWithoutDisplayList(const glm::vec3 position) {
     glPushMatrix();
     glTranslatef(position.x, position.y, position.z);
     glRotatef(rotation_angle, rotation_axis.x, rotation_axis.y, rotation_axis.z);
@@ -88,11 +90,7 @@ void RenderedObject::oldDraw(const glm::vec3 position) {
 }
 
 void RenderedObject::draw(const glm::vec3 position) {
-
-
-    oldDraw(position);
-    //drawWithDisplayList(position);
-
+    drawWithDisplayList(position);
 }
 
 void RenderedObject::drawWithDisplayList(const glm::vec3 position) {
@@ -105,15 +103,10 @@ void RenderedObject::drawWithDisplayList(const glm::vec3 position) {
 }
 
 void RenderedObject::generateDisplayList() {
-
     glDeleteLists(displayList, 1);
-
     displayList = glGenLists(1);
     glNewList(displayList, GL_COMPILE);
-
     // Draw
-    draw({0,0,0});
-
+    drawWithoutDisplayList({0,0,0});
     glEndList();
-
 }

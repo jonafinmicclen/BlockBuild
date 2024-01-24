@@ -5,16 +5,13 @@ InputHandler inputs;
 WorldManager* manager; // Declare as a pointer
 PlayerManager* playerManager;
 
-float MOVESPEED = 0.1;
+float MOVESPEED = 1;
 
 void renderLoop() {
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-
-    // Enable blending for drawing on top
 
     // Draw shit and camera shit
     userCamera.autoLookAt();

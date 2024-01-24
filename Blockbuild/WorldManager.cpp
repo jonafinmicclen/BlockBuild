@@ -63,9 +63,7 @@ void WorldManager::placeBlock(const std::pair<glm::vec3, int> positionAndBlockNo
     );
 
     // Check if the rounded position is within the bounds of world
-    if (realPosition.x >= 0 && realPosition.x < worldLength &&
-        realPosition.y >= 0 && realPosition.y < worldHeight &&
-        realPosition.z >= 0 && realPosition.z < worldLength) {
+    if (!posOutOfBounds(realPosition)) {
 
         if (world[realPosition.x][realPosition.y][realPosition.z] == -1) {
             // Place the block at the rounded position
@@ -286,7 +284,7 @@ void WorldManager::generateChunkDisplayList(const glm::ivec2 chunkPosition) {
                 auto& blockInPlace = world[x][y][z];
 
 
-                if (blockInPlace != -1 && neighbourHasOpacity({x,y,z})) {   // Dont draw blocks if not seen
+                if (blockInPlace != -1 && neighbourHasOpacity({x,y,z})) {   // Dont draw blocks if not seen or if its air (-1)
                     blocks[world[x][y][z]]->draw({ x, y, z });
                 }
             }
@@ -399,19 +397,21 @@ void WorldManager::generateWorld() {
     }
 }
 
+bool WorldManager::posOutOfBounds(const glm::ivec3 pos) {
+
+    if (pos.x >= 0 && pos.x < worldLength &&
+        pos.y >= 0 && pos.y < worldHeight &&
+        pos.z >= 0 && pos.z < worldLength) {
+        return false;
+    }
+    return true;
+
+}
+
 void WorldManager::destroyBlock(const glm::ivec3 position) {
 
-    // Check if the rounded position is within the bounds of world
-    //if (position.x >= 0 && position.x < worldLength &&
-    //   position.y >= 0 && position.y < worldHeight &&
-    //   position.z >= 0 && position.z < worldLength) {
-
-    world[position.x][position.y][position.z] = -1;
-    chunksToUpdate.push_back({ position.x / 16,position.z / 16 });
-
-    ///}
-    //else {
-        // Handle out-of-bounds case, if needed
-    //    std::cerr << "[WorldManager]:Error: Attempted to destroy block out of bounds." << std::endl;
-    //}
+    if (!posOutOfBounds(position)) {
+        world[position.x][position.y][position.z] = -1;
+        chunksToUpdate.push_back({ position.x / 16,position.z / 16 });
+    }
 }
