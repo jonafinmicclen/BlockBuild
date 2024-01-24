@@ -24,6 +24,7 @@ WorldManager::WorldManager() {
         }
     }
 
+    loadEntity();
 	WorldManager::loadBlocks();
     updatedLastFrame = true;
     std::cout << "[World Manager]:Blocks loaded.\n";
@@ -148,6 +149,7 @@ void WorldManager::drawWorldOptimised(const glm::vec2 playerPosition) {
         chunksToUpdate.clear();
     }
     // Draw chunks
+    entities[0]->draw();
     drawWorldUsingChunksDisplayLists(playerPosition);
 }
 
@@ -210,16 +212,10 @@ std::vector<int> WorldManager::getNeigbouringBlocks(const glm::ivec3 position) {
     std::vector<int> neigbouringBlocks;
 
     for (const auto& neighbour : neighbourCoords) {
-
-        if (neighbour.x >= 0 && neighbour.x < worldLength &&
-            neighbour.y >= 0 && neighbour.y < worldHeight &&
-            neighbour.z >= 0 && neighbour.z < worldLength) {
-
+        if (!posOutOfBounds(neighbour)) {
             neigbouringBlocks.push_back(world[neighbour.x][neighbour.y][neighbour.z]);
-
         }
     }
-
     return neigbouringBlocks;
 }
 
@@ -376,4 +372,30 @@ void WorldManager::destroyBlock(const glm::ivec3 position) {
         world[position.x][position.y][position.z] = -1;
         chunksToUpdate.push_back({ position.x / 16,position.z / 16 });
     }
+}
+
+void WorldManager::moveProjectileToLocation(const glm::vec3 postion) {
+    entities[0]->position = postion;
+}
+
+int WorldManager::getBlockAtPos(const glm::ivec3 pos) {
+    if (!posOutOfBounds(pos)) {
+        return world[pos.x][pos.y][pos.z];
+    }
+    else {
+        return -1;
+    }
+}
+
+void WorldManager::updateAll() {
+    entities[0]->updateTick();
+    auto nextPos = entities[0]->getNextPosition();
+    if (getBlockAtPos(nextPos) != -1) {
+        glm::ivec3 rounded = nextPos;
+        entities[0]->handleCollision({ 0,1,0 }, entities[0]->position);
+    }
+}
+
+void WorldManager::remove() {
+    entities[0]->handleCollision({ 0,1,0 }, entities[0]->position);
 }
