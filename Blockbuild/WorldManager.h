@@ -20,9 +20,7 @@
 #include <random>
 
 class WorldManager {
-public:
-	WorldManager();
-
+protected:
 	static const int worldHeight = 512;		//MUST be mulitple of 16
 	static const int worldLength = 512;		//Must be multiple of 16 for the optimisation
 	static const int renderDistance = 8;	//Meassured in chunks
@@ -30,19 +28,30 @@ public:
 	int treeHeight = 10;
 	int leafRadius = 6;
 
+	// Random number generation
 	std::random_device rd;
 	std::mt19937 gen;
 	std::uniform_int_distribution<int> distribution;
 
-	bool updatedLastFrame;
+	bool updatedLastFrame;		// Was used to keep track of when to update worls but this is now done through chunks
 	std::vector<glm::ivec2> chunksToUpdate;
 
+	// Instances of objects in world
 	std::vector<CubeBlock*> blocks;
 	std::vector<UnboundEntity*> entities;
+
+	// Stores world info, active forces, block positions
 	int8_t world[worldLength][worldHeight][worldLength];		// 8-bit int for mem usage
 	int8_t forceField[worldLength][worldHeight][worldLength];
+
+	// Render info for world
 	GLuint worldDisplayList;
-	GLuint chunksDisplayList[worldLength/16][worldLength/16];
+	GLuint chunksDisplayList[worldLength / 16][worldLength / 16];
+
+public:
+	WorldManager();
+
+
 
 	std::vector<glm::ivec2> getNeighbouringPosition(const glm::ivec2 position);
 
