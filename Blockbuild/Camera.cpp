@@ -19,7 +19,8 @@ void Camera::draw() {
 
 void Camera::rotateLookByDMXY(glm::vec2 mouseDelta) {
 
-    mouseDelta.y /= -600;   // Sensitivity factoring
+    // Sensitivity factoring
+    mouseDelta.y /= -600;   
     mouseDelta.x /= 180;
     
     // Calcuates new target after rotation
@@ -28,11 +29,13 @@ void Camera::rotateLookByDMXY(glm::vec2 mouseDelta) {
         * glm::angleAxis(mouseDelta.y, rotationAxis);
     auto newTarget = position + glm::rotate(rotationQuat, target - position);
 
+    // Maintain distance to target
     auto targetDistance = glm::distance(newTarget, position);
     std::cout << "[Camera]:Current distance to target :" << targetDistance << ".\n";
     auto distanceRatio = distanceToTargetGoal / targetDistance;
     newTarget = position + (newTarget - position) * distanceRatio;
 
+    // Cant look directly up or down
     auto lookUpDelta = abs(newTarget.y - position.y);
     if (lookUpDelta <= maxLookUpDelta) {
         target = newTarget;
