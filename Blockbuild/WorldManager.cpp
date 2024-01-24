@@ -81,6 +81,10 @@ void WorldManager::placeBlock(const std::pair<glm::vec3, int> positionAndBlockNo
     }
 }
 
+void WorldManager::loadEntity() {
+    entities.push_back(new UnboundEntity());
+}
+
 void WorldManager::loadBlocks() {
 
 	// Blocks in game
@@ -301,7 +305,7 @@ void WorldManager::drawWorldUsingDisplayList() {
 void WorldManager::generateTree(const glm::ivec3 position) {
 
     // Draw leaves
-    for (float polarAngle = 0; polarAngle < 3; polarAngle += 0.1) {
+    for (float polarAngle = 0; polarAngle < 3; polarAngle += 0.1) {     // Please dont use this method later
         for (float azimuthalAngle = 0; azimuthalAngle < 3; azimuthalAngle += 0.1) {
             double x = leafRadius * sin(polarAngle) * cos(azimuthalAngle);
             double y = leafRadius * sin(polarAngle) * sin(azimuthalAngle);
@@ -321,7 +325,7 @@ void WorldManager::generateBubble(const glm::ivec3 position) {      //Should put
 
     // Draw leaves
     for (float polarAngle = 0; polarAngle < 6.2; polarAngle += 0.1) {
-        for (float azimuthalAngle = 0; azimuthalAngle < 6.2; azimuthalAngle += 0.1) {
+        for (float azimuthalAngle = 0; azimuthalAngle < 6.2; azimuthalAngle += 0.1) { // Please dont use this method later
             double x = leafRadius * sin(polarAngle) * cos(azimuthalAngle);
             double y = leafRadius * sin(polarAngle) * sin(azimuthalAngle);
             double z = leafRadius * cos(polarAngle);
@@ -336,7 +340,7 @@ void WorldManager::explosion(const glm::ivec3 position) {
 
     for (float r = -2; r <= 4; r+=0.1) {
         for (float polarAngle = 0; polarAngle < 6.3; polarAngle += 0.1) {
-            for (float azimuthalAngle = 0; azimuthalAngle < 6.3; azimuthalAngle += 0.1) {
+            for (float azimuthalAngle = 0; azimuthalAngle < 6.3; azimuthalAngle += 0.1) { // Please dont use this method later
                 int x = r * sin(polarAngle) * cos(azimuthalAngle);
                 int y = r * sin(polarAngle) * sin(azimuthalAngle);
                 int z = r * cos(polarAngle);

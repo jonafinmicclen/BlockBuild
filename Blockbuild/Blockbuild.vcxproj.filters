@@ -81,6 +81,9 @@
     <ClCompile Include="CobblestoneBlock.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="UnboundEntity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RenderedObject.h">
@@ -144,6 +147,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CobblestoneBlock.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UnboundEntity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

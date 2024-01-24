@@ -16,6 +16,7 @@
 #include "LeafBlock.h"
 #include "CobblestoneBlock.h"
 #include <list>
+#include "UnboundEntity.h"
 #include <random>
 
 class WorldManager {
@@ -37,6 +38,7 @@ public:
 	std::vector<glm::ivec2> chunksToUpdate;
 
 	std::vector<CubeBlock*> blocks;
+	std::vector<UnboundEntity*> entities;
 	int8_t world[worldLength][worldHeight][worldLength];		// 8-bit int for mem usage
 	int8_t forceField[worldLength][worldHeight][worldLength];
 	GLuint worldDisplayList;
@@ -59,6 +61,8 @@ public:
 
 	void destroyBlock(const glm::ivec3 position);		// Does not test for out of bounds
 	void replaceBlock(const std::pair<glm::ivec3, int> positionAndBlockNo);
+
+	void loadEntity();
 
 	// Render functions
 	void drawWorld();
