@@ -25,6 +25,7 @@ protected:
 	static const int worldLength = 512;		//Must be multiple of 16 for the optimisation
 	static const int renderDistance = 8;	//Meassured in chunks
 
+	// Also effect explosion size should change
 	int treeHeight = 10;
 	int leafRadius = 6;
 
@@ -33,7 +34,8 @@ protected:
 	std::mt19937 gen;
 	std::uniform_int_distribution<int> distribution;
 
-	bool updatedLastFrame;		// Was used to keep track of when to update worls but this is now done through chunks
+	// Keeps track of when to redraw areas of worlds
+	bool updatedLastFrame;									// Only initialy used	
 	std::vector<glm::ivec2> chunksToUpdate;
 
 	// Instances of objects in world
@@ -41,51 +43,45 @@ protected:
 	std::vector<UnboundEntity*> entities;
 
 	// Stores world info, active forces, block positions
-	int8_t world[worldLength][worldHeight][worldLength];		// 8-bit int for mem usage
+	int8_t world[worldLength][worldHeight][worldLength];	
 	int8_t forceField[worldLength][worldHeight][worldLength];
 
-	// Render info for world
-	GLuint worldDisplayList;
+	// World chunks display list
 	GLuint chunksDisplayList[worldLength / 16][worldLength / 16];
 
 public:
 	WorldManager();
 
+	// Utility
+	bool posOutOfBounds(const glm::ivec3 pos);											// Returns true if given coordinate is out of bounds
+	int getNumOfBlocks();																// Returns number of blocks in the world
+	bool neighbourHasOpacity(const glm::ivec3 position);
+	std::vector<glm::ivec2> getNeighbourPositions_X_Z(const glm::ivec2 position);		// Returns position of neighbours on x,z but not y
+	std::vector<int> getNeigbouringBlocks(const glm::ivec3 position);					// Returns neighbours (x,y,z)
 
-
-	std::vector<glm::ivec2> getNeighbouringPosition(const glm::ivec2 position);
-
-	bool posOutOfBounds(const glm::ivec3 pos);		// Returns true if given coordinate is out of bounds
-
-	int getNumOfBlocks();		// Returns number of blocks in the world
-
-	void loadBlocks();		// Initialises block properties in memory
+	// Initialisation
+	void loadBlocks();	
 	void deleteBlocks();
-
-	void explosion(const glm::ivec3 position);
-
-	void placeBlock(const std::pair<glm::vec3, int> positionAndBlockNo);
-	void generateFlatland();				// Generates a flat land enviroment in current world
-	void generateWorld();
-
-	void destroyBlock(const glm::ivec3 position);		// Does not test for out of bounds
-	void replaceBlock(const std::pair<glm::ivec3, int> positionAndBlockNo);
-
 	void loadEntity();
 
-	// Render functions
-	void drawWorld();
-	void createDisplayList();
-	void drawWorldUsingDisplayList();
-	void drawWorldOptimised(const glm::vec2 playerPosition);
-	void generateChunkDisplayList(const glm::ivec2 chunkPosition);
-	void generateAllChunksDisplayLists();
-	void drawWorldUsingChunksDisplayLists(const glm::vec2 playerPosition);
-	void generateTree(const glm::ivec3 position);
-	std::vector<int> getNeigbouringBlocks(const glm::ivec3 position);
-	bool neighbourHasOpacity(const glm::ivec3 position);
-	void generateBubble(const glm::ivec3 position);
+	// In game actions
+	void explosion(const glm::ivec3 position);											// Destroys blocks in radius treeRadius
+	void placeBlock(const std::pair<glm::vec3, int> positionAndBlockNo);				// Places block, checks if out of bounds and not already occupied
+	void destroyBlock(const glm::ivec3 position);										// Destroys block, checks if out of bounds
+	void replaceBlock(const std::pair<glm::ivec3, int> positionAndBlockNo);				// Replaces block, checks if out of bounds
 
+
+	// World generation
+	void generateFlatland();															// Generates a flat land
+	void generateWorld();																// Generates a hilly world
+	void generateBubble(const glm::ivec3 position);										// Creates a bubble
+	void generateTree(const glm::ivec3 position);										// Creates a tree
+
+	// Render functions
+	void drawWorldOptimised(const glm::vec2 playerPosition);							//Automatically selects optimal functions to use to draw world and handles updates
+	void generateChunkDisplayList(const glm::ivec2 chunkPosition);						// Generates chunk display list for chunk at position (x,z)
+	void generateAllChunksDisplayLists();												// Automatically generates display lists for all chunks
+	void drawWorldUsingChunksDisplayLists(const glm::vec2 playerPosition);				// Draws all chunk display lists
 };
 
 #endif // WORLDMANAGER_H

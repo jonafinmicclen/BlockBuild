@@ -135,29 +135,12 @@ void WorldManager::deleteBlocks() {
 
 }
 
-void WorldManager::drawWorld() {
-
-    // Accessing each block in world
-    for (int x = 0; x < worldLength; ++x) {
-        for (int y = 0; y < worldHeight; ++y) {
-            for (int z = 0; z < worldLength; ++z) {
-
-                //Draws block at its index
-                int blockInPlace = world[x][y][z];
-                if (blockInPlace != -1) {
-                    blocks[blockInPlace]->draw({ x, y, z });
-                }
-            }
-        }
-    }
-}
-
 void WorldManager::drawWorldOptimised(const glm::vec2 playerPosition) {
     if (chunksToUpdate.size()>0) {
         
         // Update chunks
         for (const auto& chunkToUpdate : chunksToUpdate) {
-            for (const auto& extraChunkToUpdate : getNeighbouringPosition(chunkToUpdate)) {
+            for (const auto& extraChunkToUpdate : getNeighbourPositions_X_Z(chunkToUpdate)) {
                 std::cout << "[WorldManager]:Creating chunk display list at chunk x:" << extraChunkToUpdate.x << ", z:" << extraChunkToUpdate.y << ".\n";
                 generateChunkDisplayList({ extraChunkToUpdate });
             }
@@ -166,27 +149,6 @@ void WorldManager::drawWorldOptimised(const glm::vec2 playerPosition) {
     }
     // Draw chunks
     drawWorldUsingChunksDisplayLists(playerPosition);
-}
-
-void WorldManager::createDisplayList() {
-    worldDisplayList = glGenLists(1);
-    glNewList(worldDisplayList, GL_COMPILE);
-
-    // Accessing each block in the world
-    for (int x = 0; x < worldLength; ++x) {
-        for (int y = 0; y < worldHeight; ++y) {
-            for (int z = 0; z < worldLength; ++z) {
-
-                // Draws block at its index
-                int blockInPlace = world[x][y][z];
-                if (blockInPlace != -1) {
-                    blocks[blockInPlace]->draw({ x, y, z });
-                }
-            }
-        }
-    }
-
-    glEndList();
 }
 
 void WorldManager::drawWorldUsingChunksDisplayLists(const glm::vec2 playerPosition) {
@@ -215,7 +177,7 @@ void WorldManager::generateAllChunksDisplayLists() {
     }
 }
 
-std::vector<glm::ivec2> WorldManager::getNeighbouringPosition(const glm::ivec2 position) {
+std::vector<glm::ivec2> WorldManager::getNeighbourPositions_X_Z(const glm::ivec2 position) {
 
     std::vector<glm::ivec2> neighbourCoords;
     glm::ivec2 offsetXs = { 1,0 };
@@ -296,10 +258,6 @@ void WorldManager::generateChunkDisplayList(const glm::ivec2 chunkPosition) {
     }
 
     glEndList();
-}
-
-void WorldManager::drawWorldUsingDisplayList() {
-    glCallList(worldDisplayList);
 }
 
 void WorldManager::generateTree(const glm::ivec3 position) {
