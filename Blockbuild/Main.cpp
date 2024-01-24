@@ -10,15 +10,13 @@ float MOVESPEED = 1;
 void renderLoop() {
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-
-    // Enable blending for drawing on top
 
     // Draw shit and camera shit
     userCamera.autoLookAt();
     manager->drawWorldOptimised({userCamera.position.x, userCamera.position.z});
+    userCamera.draw();
 
     glutSwapBuffers();
 }
@@ -27,7 +25,7 @@ void reshape(int width, int height) {
     glViewport(0, 0, width, height);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(45.0, (GLfloat)width / (GLfloat)height, 0.1, 100.0);
+    gluPerspective(90, (GLfloat)width / (GLfloat)height, 0.1, 1000);
 }
 
 void physicsLoop(int value) {
@@ -56,8 +54,7 @@ void physicsLoop(int value) {
             manager->placeBlock({userCamera.target, playerManager->blockInHand});
             break;
         case 'Y':
-            playerManager->selectNextBlock();
-            manager->generateTree(userCamera.target);
+            manager->explosion(userCamera.position);
             break;
         default:
             // Check if it's an integer character

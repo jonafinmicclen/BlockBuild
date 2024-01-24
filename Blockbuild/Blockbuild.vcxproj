@@ -131,6 +131,7 @@
     <ClCompile Include="BedrockBlock.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ChestBlock.cpp" />
+    <ClCompile Include="CobblestoneBlock.cpp" />
     <ClCompile Include="CubeBlock.cpp" />
     <ClCompile Include="DirtBlock.cpp" />
     <ClCompile Include="GlassBlock.cpp" />
@@ -148,6 +149,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="StoneBlock.cpp" />
     <ClCompile Include="TntBlock.cpp" />
+    <ClCompile Include="UnboundEntity.cpp" />
     <ClCompile Include="WoodBlock.cpp" />
     <ClCompile Include="WoodplanksBlock.cpp" />
     <ClCompile Include="WorldManager.cpp" />
@@ -156,6 +158,7 @@
     <ClInclude Include="BedrockBlock.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ChestBlock.h" />
+    <ClInclude Include="CobblestoneBlock.h" />
     <ClInclude Include="CubeBlock.h" />
     <ClInclude Include="DirtBlock.h" />
     <ClInclude Include="GlassBlock.h" />
@@ -170,6 +173,7 @@
     <ClInclude Include="RenderedObject.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="TntBlock.h" />
+    <ClInclude Include="UnboundEntity.h" />
     <ClInclude Include="WoodBlock.h" />
     <ClInclude Include="WoodplanksBlock.h" />
     <ClInclude Include="WorldManager.h" />

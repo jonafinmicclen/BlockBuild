@@ -2,6 +2,8 @@
 
 void CubeBlock::setTexturePos(const std::pair<float, float> position) {
     CubeBlock::texturePos = position;
+
+
 }
 
 void CubeBlock::setAllFacesUV(std::vector<glm::vec2> allCoords) {  // Takes coordiates of all corners and creates each face with it
@@ -90,6 +92,5 @@ CubeBlock::CubeBlock() : RenderedObject::RenderedObject()  {
 
     const char* texturePath = "../BlockBuild/textures.png";    // Temp default texture
     RenderedObject::loadTexture(texturePath);
-
     setVertexAndCoords();
 }
