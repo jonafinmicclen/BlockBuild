@@ -59,7 +59,6 @@ public:
 	std::vector<glm::ivec2> getNeighbourPositions_X_Z(const glm::ivec2 position);		// Returns position of neighbours on x,z but not y
 	std::vector<int> getNeigbouringBlocks(const glm::ivec3 position);					// Returns neighbours (x,y,z)
 	int getBlockAtPos(const glm::ivec3 pos);
-	void remove();																		// Currently reflects an entity 0,1,0
 
 	// Initialisation
 	void loadBlocks();	
@@ -75,6 +74,7 @@ public:
 	void destroyBlock(const glm::ivec3 position);										// Destroys block, checks if out of bounds
 	void replaceBlock(const std::pair<glm::ivec3, int> positionAndBlockNo);				// Replaces block, checks if out of bounds
 	void moveProjectileToLocation(const glm::vec3 position);
+	void createProjectileAtLocation(const glm::vec3 position);
 
 	// World generation
 	void generateFlatland();															// Generates a flat land

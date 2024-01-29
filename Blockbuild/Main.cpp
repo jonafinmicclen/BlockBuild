@@ -46,13 +46,12 @@ void physicsLoop(int value) {
             break;
         case 'A':
             userCamera.moveRelativeStrafe(-MOVESPEED);
-            manager->remove();
             break;
         case 'D':
             userCamera.moveRelativeStrafe(MOVESPEED);
             break;
         case 'T':
-            manager->moveProjectileToLocation(userCamera.target);
+            manager->createProjectileAtLocation(userCamera.target);
 
             manager->placeBlock({userCamera.target, playerManager->blockInHand});
             break;

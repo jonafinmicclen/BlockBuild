@@ -355,6 +355,13 @@ void WorldManager::generateWorld() {
     }
 }
 
+void WorldManager::createProjectileAtLocation(const glm::vec3 position) {
+
+    entities.push_back(new UnboundEntity());
+    entities.back()->position = position;
+
+}
+
 bool WorldManager::posOutOfBounds(const glm::ivec3 pos) {
 
     if (pos.x >= 0 && pos.x < worldLength &&
@@ -391,8 +398,6 @@ int WorldManager::getBlockAtPos(const glm::ivec3 pos) {
 void WorldManager::updateAll() {
 
     entities[0]->applyForceTick({ 0, -0.05, 0 });
-
-    // This is for hanlding colisions but testing rn so only index 0
     entities[0]->updateTick();
     auto nextPos = entities[0]->getNextPosition();
     auto blockNoAtNext = getBlockAtPos(nextPos);
@@ -407,8 +412,25 @@ void WorldManager::updateAll() {
             entities[0]->handleCollision(normal, collisionPoint);
         }
     }
-}
 
-void WorldManager::remove() {
-    entities[0]->handleCollision({ 0,1,0 }, entities[0]->position);
+    // Copying above but for all entities
+    for (const auto& entitiy : entities) {
+
+        entitiy->applyForceTick({ 0, -0.05, 0 });
+        entitiy->updateTick();
+        auto nextPos = entitiy->getNextPosition();
+        auto blockNoAtNext = getBlockAtPos(nextPos);
+        if (blockNoAtNext != -1) {         // After checking this should cast another ray to see if colided with an object further back
+
+            auto collisionPointAndNormal = blocks[blockNoAtNext]->getCollisionPointAndNormal(entitiy->position, glm::normalize(entitiy->velocity), glm::ivec3(nextPos));
+
+            auto collisionPoint = collisionPointAndNormal.first;
+            auto normal = collisionPointAndNormal.second;
+
+            if (normal.x != 0 || normal.y != 0 || normal.z != 0) {
+                entitiy->handleCollision(normal, collisionPoint);
+            }
+        }
+
+    }
 }
