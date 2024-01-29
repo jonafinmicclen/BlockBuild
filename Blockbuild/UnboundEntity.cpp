@@ -6,8 +6,10 @@ UnboundEntity::UnboundEntity() {
     mass = 1;
 }
 
-void UnboundEntity::reflectVelocity(const glm::vec3 normalOfColision) {
-	velocity = velocity - 2.0f * glm::dot(velocity, normalOfColision) * velocity;
+void UnboundEntity::reflectVelocity(const glm::vec3 normalOfCollision) {
+    glm::vec3 normalizedVelocity = glm::normalize(velocity);
+    glm::vec3 normalizedNormal = glm::normalize(normalOfCollision);
+    velocity = normalizedVelocity - 2.0f * glm::dot(normalizedVelocity, normalizedNormal) * normalizedNormal;
 }
 
 void UnboundEntity::applyForceTick(const glm::vec3 forceVector) {
@@ -60,7 +62,7 @@ void UnboundEntity::handleCollision(const glm::vec3& planeNormal, const glm::vec
     // Update position for the remaining distance after collision
     position = collisionPoint + (1-(distanceToCollision / glm::length(velocity))) * velocity;
 
-    std::cout << "[UnboundEntity]: Position and velocity after colision: P:" << position.x << ", " << position.y << ", " << position.z << "; V:" << velocity.x << ", " << velocity.y << ", " << velocity.z << ".\n";
+    std::cout << "[UnboundEntity]: Position and velocity after colision: P:" << position.x << ", " << position.y << ", " << position.z << "; V:" << velocity.x << ", " << velocity.y << ", " << velocity.z << "; collision with :" << planeNormal.x << "," << planeNormal.y << "," << planeNormal.z << ".\n";
 }
 
 glm::vec3 UnboundEntity::getNextPosition() {
