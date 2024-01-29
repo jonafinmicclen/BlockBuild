@@ -375,8 +375,8 @@ void WorldManager::destroyBlock(const glm::ivec3 position) {
 }
 
 void WorldManager::moveProjectileToLocation(const glm::vec3 postion) {
-    std::cout << "moved";
     entities[0]->position = postion;
+    entities[0]->velocity /= entities[0]->getSpeed();
 }
 
 int WorldManager::getBlockAtPos(const glm::ivec3 pos) {

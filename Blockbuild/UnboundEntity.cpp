@@ -29,7 +29,7 @@ void UnboundEntity::draw() {
 	GLUquadric* quad;
 	quad = gluNewQuadric();
 	glTranslatef(position.x, position.y, position.z);
-	gluSphere(quad, 0.05, 10, 10);
+	gluSphere(quad, 0.2, 10, 10);
 	glPopMatrix();
 }
 

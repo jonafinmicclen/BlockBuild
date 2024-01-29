@@ -53,6 +53,7 @@ void physicsLoop(int value) {
             break;
         case 'T':
             manager->moveProjectileToLocation(userCamera.target);
+
             manager->placeBlock({userCamera.target, playerManager->blockInHand});
             break;
         case 'Y':
