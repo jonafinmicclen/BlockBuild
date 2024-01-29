@@ -388,10 +388,12 @@ int WorldManager::getBlockAtPos(const glm::ivec3 pos) {
 }
 
 void WorldManager::updateAll() {
+
+    // This is for hanlding colisions but testing rn so only index 0
     entities[0]->updateTick();
     auto nextPos = entities[0]->getNextPosition();
-    if (getBlockAtPos(nextPos) != -1) {
-        glm::ivec3 rounded = nextPos;
+    if (getBlockAtPos(nextPos) != -1) {         // After checking this should cast another ray to see if colided with an object further back
+        glm::ivec3 rounded = nextPos;           // Should get excact normal and collision point next
         entities[0]->handleCollision({ 0,1,0 }, entities[0]->position);
     }
 }
