@@ -43,25 +43,16 @@ glm::vec3 UnboundEntity::getColisionCoords(const glm::vec3& planeNormal, const g
     return collisionPoint;
 }
 
-void UnboundEntity::handleCollision(const glm::vec3& planeNormal, const glm::vec3& planePosition) {
-
-    // Calculate time of collision
-    float tCollision = glm::dot((planePosition - position), planeNormal) / glm::dot(velocity, planeNormal);
-
-    // Calculate collision point
-    glm::vec3 collisionPoint = position + tCollision * velocity;
-
-    // Calculate distance traveled to collision point
-    float distanceToCollision = glm::length(collisionPoint - position);
+void UnboundEntity::handleCollision(const glm::vec3& planeNormal, const glm::vec3& collisionPosition) {
 
     // Reflect velocity
     auto preSpeed = getSpeed();
-    reflectVelocity(planeNormal);
+    reflectVelocity(glm::normalize(planeNormal));
+    // Ensure constant speed after collision
     velocity /= getSpeed() / preSpeed;
-
-    // Update position for the remaining distance after collision
-    position = collisionPoint + (1 - (distanceToCollision / glm::length(velocity))) * velocity;
-
+    // Offset position to match actual position after frame
+    auto remainingProportionOfVelocity = (preSpeed - glm::distance(collisionPosition, position)) / preSpeed;
+    position = collisionPosition + velocity * remainingProportionOfVelocity;
 }
 
 glm::vec3 UnboundEntity::getNextPosition() {

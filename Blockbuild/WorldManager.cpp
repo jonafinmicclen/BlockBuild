@@ -375,6 +375,7 @@ void WorldManager::destroyBlock(const glm::ivec3 position) {
 }
 
 void WorldManager::moveProjectileToLocation(const glm::vec3 postion) {
+    std::cout << "moved";
     entities[0]->position = postion;
 }
 
@@ -389,12 +390,22 @@ int WorldManager::getBlockAtPos(const glm::ivec3 pos) {
 
 void WorldManager::updateAll() {
 
+    entities[0]->applyForceTick({ 0, -0.05, 0 });
+
     // This is for hanlding colisions but testing rn so only index 0
     entities[0]->updateTick();
     auto nextPos = entities[0]->getNextPosition();
-    if (getBlockAtPos(nextPos) != -1) {         // After checking this should cast another ray to see if colided with an object further back
-        glm::ivec3 rounded = nextPos;           // Should get excact normal and collision point next
-        entities[0]->handleCollision({ 0,1,0 }, entities[0]->position);
+    auto blockNoAtNext = getBlockAtPos(nextPos);
+    if (blockNoAtNext != -1) {         // After checking this should cast another ray to see if colided with an object further back
+
+        auto collisionPointAndNormal = blocks[blockNoAtNext]->getCollisionPointAndNormal(entities[0]->position, glm::normalize(entities[0]->velocity), glm::ivec3(nextPos));
+
+        auto collisionPoint = collisionPointAndNormal.first;
+        auto normal = collisionPointAndNormal.second;
+
+        if (normal.x != 0 || normal.y != 0 || normal.z != 0) {
+            entities[0]->handleCollision(normal, collisionPoint);
+        }
     }
 }
 

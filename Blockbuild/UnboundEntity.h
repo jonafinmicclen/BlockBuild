@@ -26,10 +26,11 @@ public:
 	// Rendering
 	void draw();
 	glm::vec3 position;
+	glm::vec3 velocity;
 
 protected:
 
-	glm::vec3 velocity;
+	
 	float mass;
 };
 

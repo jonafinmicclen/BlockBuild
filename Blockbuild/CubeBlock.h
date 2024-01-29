@@ -17,6 +17,9 @@ public:
 	void rotateFaceACW(int surfaceIndex); //Rotates the texture of a surface by its index Anti-Clockwise
 	void rotateFaceCW(int surfaceIndex); //Rotates the texture of a surface by its index Clockwise
 
+	// Finds the collision point and normal of a rays collision with the cube from origin with incident rayVec
+	std::pair<glm::vec3, glm::vec3> getCollisionPointAndNormal(const glm::vec3 rayOrigin, const glm::vec3 rayVec, const glm::vec3 cubePos);
+
 	glm::vec2 bottomLeft;
 	glm::vec2 topRight;
 	glm::vec2 topLeft;
