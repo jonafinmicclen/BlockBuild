@@ -84,6 +84,9 @@
     <ClCompile Include="UnboundEntity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BlockModelLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RenderedObject.h">
@@ -152,6 +155,9 @@
     <ClInclude Include="UnboundEntity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BlockModelLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -160,5 +166,16 @@
     <Image Include="textures.png">
       <Filter>Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="BM_BUBBLE.bmf">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="BM_TREE.bmf">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="BM_EXPLOSION.bmf">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

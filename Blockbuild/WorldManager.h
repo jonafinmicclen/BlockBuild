@@ -17,6 +17,7 @@
 #include "CobblestoneBlock.h"
 #include <list>
 #include "UnboundEntity.h"
+#include "BlockModelLoader.h"
 #include <random>
 
 class WorldManager {
@@ -41,6 +42,9 @@ protected:
 	// Instances of objects in world
 	std::vector<CubeBlock*> blocks;
 	std::vector<UnboundEntity*> entities;
+
+	// Model loader for in game structures
+	BlockModelLoader blockModelLoader = BlockModelLoader();
 
 	// Stores world info, active forces, block positions
 	int8_t world[worldLength][worldHeight][worldLength];	

@@ -24,10 +24,16 @@ WorldManager::WorldManager() {
         }
     }
 
+    // Load in game things
     loadEntity();
 	WorldManager::loadBlocks();
     updatedLastFrame = true;
     std::cout << "[World Manager]:Blocks loaded.\n";
+
+    // Load models
+    blockModelLoader.loadModel("../BlockBuild/BM_BUBBLE.bmf");
+    blockModelLoader.loadModel("../BlockBuild/BM_EXPLOSION.bmf");
+    blockModelLoader.loadModel("../BlockBuild/BM_TREE.bmf");
 
 }
 
@@ -313,21 +319,11 @@ void WorldManager::generateBubble(const glm::ivec3 position) {      //Should put
 
 void WorldManager::explosion(const glm::ivec3 position) {
 
+    for (auto& blockInfo : blockModelLoader.models[1]) {
 
-    for (float r = -2; r <= 4; r+=0.1) {
-        for (float polarAngle = 0; polarAngle < 6.3; polarAngle += 0.1) {
-            for (float azimuthalAngle = 0; azimuthalAngle < 6.3; azimuthalAngle += 0.1) { // Please dont use this method later
-                int x = r * sin(polarAngle) * cos(azimuthalAngle);
-                int y = r * sin(polarAngle) * sin(azimuthalAngle);
-                int z = r * cos(polarAngle);
-                world[x + position.x][y + position.y][z + position.z] = -1;      // Not a tree just copied from tree
-                chunksToUpdate.push_back({ x + position.x ,z + position.z });
-            }
-        }
+        world[blockInfo.x+position.x][blockInfo.y + position.y][blockInfo.z + position.z] = blockInfo.blockN;
+
     }
-    glm::ivec2 chunkPos = { position.x, position.z };
-
-//Also should update other chunks involved
 
 }
 

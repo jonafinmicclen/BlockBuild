@@ -129,6 +129,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BedrockBlock.cpp" />
+    <ClCompile Include="BlockModelLoader.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ChestBlock.cpp" />
     <ClCompile Include="CobblestoneBlock.cpp" />
@@ -156,6 +157,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BedrockBlock.h" />
+    <ClInclude Include="BlockModelLoader.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ChestBlock.h" />
     <ClInclude Include="CobblestoneBlock.h" />
@@ -179,6 +181,21 @@
     <ClInclude Include="WorldManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="BM_BUBBLE.bmf">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <FileType>Document</FileType>
+    </Text>
+    <Text Include="BM_EXPLOSION.bmf">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <FileType>Document</FileType>
+    </Text>
+    <Text Include="BM_TREE.bmf">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <FileType>Document</FileType>
+    </Text>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
