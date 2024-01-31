@@ -70,7 +70,7 @@ void WorldManager::placeBlock(const std::pair<glm::vec3, int> positionAndBlockNo
             // Place the block at the rounded position
             world[realPosition.x][realPosition.y][realPosition.z] = blockNo;
             // Keep track of when to update chunks
-            chunksToUpdate.push_back({ realPosition.x/16,realPosition.z/16 });
+            chunksToUpdate.push_back({ realPosition.x,realPosition.z });
         }
         else {
             std::cout << "[WorldManager]:Player attempted to place block in non-empty location.\n";
@@ -138,12 +138,12 @@ void WorldManager::deleteBlocks() {
 
 void WorldManager::drawWorldOptimised(const glm::vec2 playerPosition) {
     if (chunksToUpdate.size()>0) {
-        
         // Update chunks
         for (const auto& chunkToUpdate : chunksToUpdate) {
             for (const auto& extraChunkToUpdate : getNeighbourPositions_X_Z(chunkToUpdate)) {
                 std::cout << "[WorldManager]:Creating chunk display list at chunk x:" << extraChunkToUpdate.x << ", z:" << extraChunkToUpdate.y << ".\n";
-                generateChunkDisplayList({ extraChunkToUpdate });
+                generateColumnDisplayList(extraChunkToUpdate);    // Add coords
+                generateChunkDisplayList({ extraChunkToUpdate.x/16, extraChunkToUpdate.x/16 });
             }
         }
         chunksToUpdate.clear();
@@ -172,6 +172,15 @@ void WorldManager::drawWorldUsingChunksDisplayLists(const glm::vec2 playerPositi
 }
 
 void WorldManager::generateAllChunksDisplayLists() {
+
+    for (int x = 0; x < worldLength; ++x) {
+        for (int z = 0; z < worldLength; ++z) {
+
+            generateColumnDisplayList({ x,z });
+
+        }
+    }
+
     for (int x = 0; x < worldLength/16; ++x) {
         for (int z = 0; z < worldLength/16; ++z) {
 
@@ -242,20 +251,30 @@ void WorldManager::generateChunkDisplayList(const glm::ivec2 chunkPosition) {
     for (int x = chunkPosition.x * 16; x < chunkPosition.x * 16 + 16; ++x) {
         for (int z = chunkPosition.y * 16; z < chunkPosition.y * 16 + 16; ++z) {
 
-            for (int y = worldHeight-1; y >= 0; --y) {      //Top down render
+            glCallList(columnDisplayLists[x][z]);
 
-                // Draws block at its index
-                auto& blockInPlace = world[x][y][z];
-
-
-                if (blockInPlace != -1 && neighbourHasOpacity({x,y,z})) {   // Dont draw blocks if not seen or if its air (-1)
-                    blocks[world[x][y][z]]->draw({ x, y, z });
-                }
-            }
         }
     }
 
     glEndList();
+}
+
+void WorldManager::generateColumnDisplayList(const glm::ivec2 position) {
+
+    glDeleteLists(columnDisplayLists[position.x][position.y], 1);
+    columnDisplayLists[position.x][position.y] = glGenLists(1);    //Here x and y refers to x and z as chunk doesnt have y coord
+    glNewList(columnDisplayLists[position.x][position.y], GL_COMPILE);
+
+    for (int y = worldHeight - 1; y >= 0; --y) {
+        auto& blockInPlace = world[position.x][y][position.y];
+        if (blockInPlace != -1 && neighbourHasOpacity({ position.x,y,position.y })) {   // Dont draw blocks if not seen or if its air (-1)
+            blocks[world[position.x][y][position.y]]->draw({ position.x, y, position.y });
+        }
+
+    }
+
+    glEndList();
+
 }
 
 void WorldManager::generateTree(const glm::ivec3 position) {
@@ -294,6 +313,7 @@ void WorldManager::generateBubble(const glm::ivec3 position) {      //Should put
 
 void WorldManager::explosion(const glm::ivec3 position) {
 
+
     for (float r = -2; r <= 4; r+=0.1) {
         for (float polarAngle = 0; polarAngle < 6.3; polarAngle += 0.1) {
             for (float azimuthalAngle = 0; azimuthalAngle < 6.3; azimuthalAngle += 0.1) { // Please dont use this method later
@@ -301,12 +321,13 @@ void WorldManager::explosion(const glm::ivec3 position) {
                 int y = r * sin(polarAngle) * sin(azimuthalAngle);
                 int z = r * cos(polarAngle);
                 world[x + position.x][y + position.y][z + position.z] = -1;      // Not a tree just copied from tree
+                chunksToUpdate.push_back({ x + position.x ,z + position.z });
             }
         }
     }
-    glm::ivec2 chunkPos = { position.x / 16, position.z / 16 };
+    glm::ivec2 chunkPos = { position.x, position.z };
 
-    chunksToUpdate.push_back({ chunkPos });//Also should update other chunks involved
+//Also should update other chunks involved
 
 }
 
@@ -379,7 +400,7 @@ void WorldManager::destroyBlock(const glm::ivec3 position) {
 
     if (!posOutOfBounds(position)) {
         world[position.x][position.y][position.z] = -1;
-        chunksToUpdate.push_back({ position.x / 16,position.z / 16 });
+        chunksToUpdate.push_back({ position.x,position.z });
     }
 }
 
@@ -431,6 +452,10 @@ void WorldManager::updateAll() {
 
             if (normal.x != 0 || normal.y != 0 || normal.z != 0) {
                 entitiy->handleCollision(normal, collisionPoint);
+            }
+
+            if (blockNoAtNext == 7) {
+                explosion(nextPos);
             }
         }
 

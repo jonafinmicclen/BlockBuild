@@ -28,7 +28,7 @@ public:
 	void rotateLookByDMXY(glm::vec2 mouseDelta);
 
 protected:
-	float maxLookUpDelta = 3.95;
+	float maxLookUpDelta = 3.90;
 	float distanceToTargetGoal = 4;
 
 };

@@ -22,7 +22,7 @@
 class WorldManager {
 protected:
 	static const int worldHeight = 512;		//MUST be mulitple of 16
-	static const int worldLength = 128;		//Must be multiple of 16 for the optimisation
+	static const int worldLength = 512;		//Must be multiple of 16 for the optimisation
 	static const int renderDistance = 8;	//Meassured in chunks
 
 	// Also effect explosion size should change
@@ -48,6 +48,7 @@ protected:
 
 	// World chunks display list
 	GLuint chunksDisplayList[worldLength / 16][worldLength / 16];
+	GLuint columnDisplayLists[worldLength][worldLength];
 
 public:
 	WorldManager();
@@ -87,6 +88,8 @@ public:
 	void generateChunkDisplayList(const glm::ivec2 chunkPosition);						// Generates chunk display list for chunk at position (x,z)
 	void generateAllChunksDisplayLists();												// Automatically generates display lists for all chunks
 	void drawWorldUsingChunksDisplayLists(const glm::vec2 playerPosition);				// Draws all chunk display lists
+	void generateColumnDisplayList(const glm::ivec2 position);
+
 };
 
 #endif // WORLDMANAGER_H
