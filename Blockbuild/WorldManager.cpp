@@ -319,8 +319,8 @@ void WorldManager::generateBubble(const glm::ivec3 position) {      //Should put
 
 void WorldManager::explosion(const glm::ivec3 position) {
 
-    for (auto& blockInfo : blockModelLoader.models[1]) {
-
+    for (const auto& blockInfo : blockModelLoader.models[1]) {
+        std::cout << blockInfo.x;
         world[blockInfo.x+position.x][blockInfo.y + position.y][blockInfo.z + position.z] = blockInfo.blockN;
 
     }

@@ -166,16 +166,14 @@
     <Image Include="textures.png">
       <Filter>Resource Files</Filter>
     </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="BM_BUBBLE.bmf">
+    <Image Include="BM_BUBBLE.bmf">
       <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="BM_TREE.bmf">
+    </Image>
+    <Image Include="BM_TREE.bmf">
       <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="BM_EXPLOSION.bmf">
+    </Image>
+    <Image Include="BM_EXPLOSION.bmf">
       <Filter>Resource Files</Filter>
-    </Text>
+    </Image>
   </ItemGroup>
 </Project>
