@@ -149,7 +149,9 @@ void WorldManager::drawWorldOptimised(const glm::vec2 playerPosition) {
         chunksToUpdate.clear();
     }
     // Draw chunks
-    entities[0]->draw();
+    for (auto& entity : entities) {
+        entity->draw();
+    }
     drawWorldUsingChunksDisplayLists(playerPosition);
 }
 

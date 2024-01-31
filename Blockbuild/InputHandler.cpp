@@ -116,6 +116,10 @@ void InputHandler::_keyboard_listener() {
             NINE_PRESSED = true;
             pressedKeys.push_back('9');
         }
+        if ((GetAsyncKeyState('E') & 0x8000) && !E_PRESSED) {
+            E_PRESSED = true;
+            pressedKeys.push_back('E');
+        }
     }
 }
 
@@ -144,8 +148,12 @@ std::vector<char> InputHandler::getPressed() {
     DOWN_PRESSED = false;
     LEFT_PRESSED = false;
     RIGHT_PRESSED = false;
+
+    E_PRESSED = false;
+
     MB_RIGHT_PRESSED = false;
     MB_LEFT_PRESSED = false;
+
     ZERO_PRESSED = false;
     ONE_PRESSED = false;
     TWO_PRESSED = false;

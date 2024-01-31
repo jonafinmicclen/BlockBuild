@@ -43,6 +43,9 @@ private:
 	bool DOWN_PRESSED = false;
 	bool LEFT_PRESSED = false;
 	bool RIGHT_PRESSED = false;
+
+	bool E_PRESSED = false;
+
 	bool MB_RIGHT_PRESSED = false;
 	bool MB_LEFT_PRESSED = false;
 
