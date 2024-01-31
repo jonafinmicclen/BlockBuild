@@ -17,6 +17,9 @@ void UnboundEntity::applyForceTick(const glm::vec3 forceVector) {
 }
 
 void UnboundEntity::updateTick(){
+    if (position.y < -50) {
+        alive = false;
+    }
 	position += velocity;
 }
 

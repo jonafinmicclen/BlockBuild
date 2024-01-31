@@ -22,6 +22,7 @@ public:
 	void handleCollision(const glm::vec3& planeNormal,
 		const glm::vec3& planePosition);						// Calculates new position and updatees velocity
 	glm::vec3 getNextPosition();
+	bool alive = true;
 
 	// Rendering
 	void draw();
