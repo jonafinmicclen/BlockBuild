@@ -15,4 +15,3 @@ Purely for fun/learning.
 *Notes*
 - for some reason half way through i convinced myself that you canot pass more than one variable to a function
 - the entire renderer has been heavily modified so many times that it is unreadable, dont even bother, ill fix it later.
-- s
